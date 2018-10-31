@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+if [ -e ./src/components/$1.js ]
+then
+    echo "Component already exists. Exiting." 1>&2
+else
+  cp ./src/components/_BLANK_.js ./src/components/$1.js
+  cp ./src/components/_BLANK_.css ./src/components/$1.css
+
+  sed -i '' "s/_BLANK_/${1}/g" ./src/components/$1.css
+  sed -i '' "s/_BLANK_/${1}/g" ./src/components/$1.js
+  echo "Component ${1} created"
+fi
+

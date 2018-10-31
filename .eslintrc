@@ -1,0 +1,23 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "extends": [
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "comma-dangle": ["warn", "never"],
+    "brace-style": "warn",
+    "eol-last": ["error", "always"],
+    "indent": ["error", 2],
+    "jsx-quotes": ["error", "prefer-double"],
+    "max-depth": ["error", 4],
+    "no-unused-vars": "error"
+  },
+  "plugins": [
+    "react"
+  ]
+}
