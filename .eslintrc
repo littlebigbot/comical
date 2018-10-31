@@ -5,9 +5,6 @@
     "allowImportExportEverywhere": false,
     "codeFrame": false
   },
-  "extends": [
-    "plugin:react/recommended"
-  ],
   "rules": {
     "comma-dangle": ["warn", "never"],
     "brace-style": "warn",
