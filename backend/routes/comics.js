@@ -14,6 +14,30 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/last', function(req, res, next) {
+  connection.query('SELECT * FROM comics ORDER BY date ASC LIMIT 1', function (error, results, fields) {
+    if(error){
+      res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
+      //If there is error, we send the error in the error section with 500 status
+    } else {
+      res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+      //If there is no error, all is good and response is 200OK.
+    }
+  });
+});
+
+router.get('/first', function(req, res, next) {
+  connection.query('SELECT * FROM comics ORDER BY date DESC LIMIT 1', function (error, results, fields) {
+    if(error){
+      res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
+      //If there is error, we send the error in the error section with 500 status
+    } else {
+      res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+      //If there is no error, all is good and response is 200OK.
+    }
+  });
+});
+
 router.get('/:slug', function(req, res, next) {
   connection.query('SELECT * FROM comics WHERE slug = "' + req.params.slug + '" LIMIT 1', function (error, results, fields) {
     if(error){

@@ -46,8 +46,6 @@ app.use(function(req, res, next){
 
 // app.use('/', index);
 app.use('/api/v1/comics', comics);
-// app.use('/api/v1/comics/:slug', comics);
-
 
 app.use("*", function(req, resp) {
   console.log(path.resolve(__dirname + '../../static/index.html'));
