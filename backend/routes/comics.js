@@ -36,7 +36,7 @@ router.get('/:slug/navigation', function(req, res, next) {
 
   console.log([previousQuery, nextQuery, randomQuery].join(' '));
 
-  connection.query([previousQuery, nextQuery, randomQuery].join(' '))
+  connection.query([previousQuery, nextQuery, randomQuery].join(' '), ['previousSlug', 'nextSlug', 'randomSlug'])
     .on('fields', function(fields, index) {
       console.log('fields', fields, index);
     })
