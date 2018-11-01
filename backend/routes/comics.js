@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  connection.query('SELECT * from comics', function (error, results, fields) {
+  connection.query('SELECT * FROM comics', function (error, results, fields) {
     if(error){
       res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
       //If there is error, we send the error in the error section with 500 status
@@ -15,8 +15,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:slug', function(req, res, next) {
-  console.log(req);
-  connection.query('SELECT * from comics', function (error, results, fields) {
+  console.log(req.params.slug);
+  connection.query('SELECT * FROM comics WHERE slug =' + req.params.slug, function (error, results, fields) {
     if(error){
       res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
       //If there is error, we send the error in the error section with 500 status
