@@ -34,7 +34,8 @@ app.use(function(req, res, next){
     user     : credentials.username,
     password : credentials.password,
     host     : 'localhost',
-    database : 'comical'
+    database : 'comical',
+    multipleStatements: true
   });
   connection.connect();
   next();
