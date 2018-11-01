@@ -29,10 +29,10 @@ router.get('/:slug', function(req, res, next) {
 router.get('/:slug/navigation', function(req, res, next) {
   console.log(req.params.slug);
 
-  var currentQuery = `SELECT date FROM comics WHERE slug ="${req.params.slug}"`;
-  var previousQuery = `SELECT slug FROM comics WHERE date < (${currentQuery}) order by date desc limit 1`;
-  var nextQuery = `SELECT slug FROM comics WHERE date > (${currentQuery}) order by date desc limit 1`;
-  var randomQuery = `SELECT slug FROM comics ORDER BY RAND() WHERE slug !="${req.params.slug}" LIMIT 1`;
+  var currentQuery = 'SELECT date FROM comics WHERE slug ="'+req.params.slug+'"';
+  var previousQuery = 'SELECT slug FROM comics WHERE date < ('+currentQuery+') order by date desc limit 1';
+  var nextQuery = 'SELECT slug FROM comics WHERE date > ('+currentQuery+') order by date desc limit 1';
+  var randomQuery = 'SELECT slug FROM comics ORDER BY RAND() WHERE slug !="'+req.params.slug+'" LIMIT 1';
 
   connection.query([previousQuery, nextQuery, randomQuery].join('; '), ['previousSlug', 'nextSlug', 'randomSlug'], function(err, results) {
     if (err) throw err;
@@ -41,12 +41,12 @@ router.get('/:slug/navigation', function(req, res, next) {
   });
 
   // var currentQuery = 'SELECT date FROM comics WHERE slug ="' + req.params.slug + '"'
-  // connection.query('select slug from comics where `date` < (select `date` from comics where id=4) order by `date` desc limit 1', function (error, results, fields) {
+  // connection.query('select slug from comics where 'date' < (select 'date' from comics where id=4) order by 'date' desc limit 1', function (error, results, fields) {
   //   if(error){
   //     res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
   //     //If there is error, we send the error in the error section with 500 status
   //   } else {
-  //     connection.query('select slug from comics where `date` > (select `date` from comics where id=4) order by `date` desc limit 1', function (error2, results2, fields2) {
+  //     connection.query('select slug from comics where 'date' > (select 'date' from comics where id=4) order by 'date' desc limit 1', function (error2, results2, fields2) {
   //       if(error){
   //         res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
   //         //If there is error, we send the error in the error section with 500 status
