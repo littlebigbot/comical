@@ -24,10 +24,6 @@ app.set('view engine', 'html');
 
 app.use(express.static('../static'));
 
-app.use("*", function(req, resp) {
-  resp.sendFile("/public/index.html");
-});
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -51,6 +47,11 @@ app.use(function(req, res, next){
 // app.use('/', index);
 app.use('/api/v1/comics', comics);
 // app.use('/api/v1/comics/:slug', comics);
+
+
+app.use("*", function(req, resp) {
+  resp.sendFile("/public/index.html");
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
