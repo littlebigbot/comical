@@ -51,7 +51,7 @@ router.get('/:slug/navigation', function(req, res, next) {
         case 1:
           responseObject.nextSlug = row.slug;
           break;
-        case: 2:
+        case 2:
           responseObject.randomSlug = row.slug;
           break;
         default:
