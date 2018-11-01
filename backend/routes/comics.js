@@ -34,6 +34,8 @@ router.get('/:slug/navigation', function(req, res, next) {
   var nextQuery = 'SELECT slug FROM comics WHERE date > ('+currentQuery+') order by date desc limit 1';
   var randomQuery = 'SELECT slug FROM comics ORDER BY RAND() WHERE slug <> "'+req.params.slug+'" LIMIT 1';
 
+  console.log([previousQuery, nextQuery, randomQuery].join('; '));
+
   connection.query([previousQuery, nextQuery, randomQuery].join('; '), ['previousSlug', 'nextSlug', 'randomSlug'], function(err, results) {
     if (err) throw err;
 
