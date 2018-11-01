@@ -32,15 +32,17 @@ router.get('/:slug/navigation', function(req, res, next) {
   var currentQuery = 'SELECT date FROM comics WHERE slug ="'+req.params.slug+'"';
   var previousQuery = 'SELECT slug FROM comics WHERE date < ('+currentQuery+') order by date desc limit 1;';
   var nextQuery = 'SELECT slug FROM comics WHERE date > ('+currentQuery+') order by date desc limit 1;';
-  var randomQuery = 'SELECT slug FROM comics ORDER BY RAND() LIMIT 1;';
+  var randomQuery = 'SELECT slug FROM comics WHERE slug <> "'+req.params.slug+'" ORDER BY RAND() LIMIT 1;';
 
   console.log([previousQuery, nextQuery, randomQuery].join(' '));
 
-  connection.query([previousQuery, nextQuery, randomQuery].join(' '), ['previousSlug', 'nextSlug', 'randomSlug'], function(err, results) {
-    if (err) throw err;
-
-    console.log(results); // [{1: 1}]
-  });
+  connection.query([previousQuery, nextQuery, randomQuery].join(' '))
+    .on('fields', function(fields, index) {
+      console.log('fields', fields, index);
+    })
+    .on('result', function(row, index) {
+      console.log('result', row, index);
+    });
 
   // var currentQuery = 'SELECT date FROM comics WHERE slug ="' + req.params.slug + '"'
   // connection.query('select slug from comics where 'date' < (select 'date' from comics where id=4) order by 'date' desc limit 1', function (error, results, fields) {
