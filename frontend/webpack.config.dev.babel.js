@@ -44,7 +44,7 @@ export default {
       template: path.resolve(SRC_PATH, 'index.html'),
       filename: 'index.html',
       alwaysWriteToDisk: true,
-      title: 'ＣＵＬＴＵＲＥ　ＥＮＧＩＮＥ',
+      title: 'Wayward Robot',
       // favicon: 'src/assets/favicon.png'
     }),
     new HtmlWebpackHarddiskPlugin(),

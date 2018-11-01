@@ -45,7 +45,7 @@ export default {
       hash: true,
       template: path.resolve(SRC_PATH, 'index.html'),
       filename: 'index.html',
-      title: 'ＣＵＬＴＵＲＥ　ＥＮＧＩＮＥ',
+      title: 'Wayward Robot',
       // favicon: 'src/assets/favicon.png'
     }),
     new webpack.NamedModulesPlugin(),
