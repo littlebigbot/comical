@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/last', function(req, res, next) {
-  connection.query('SELECT * FROM comics ORDER BY date ASC LIMIT 1', function (error, results, fields) {
+  connection.query('SELECT * FROM comics ORDER BY date DESC LIMIT 1', function (error, results, fields) {
     if(error){
       res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
       //If there is error, we send the error in the error section with 500 status
@@ -27,7 +27,7 @@ router.get('/last', function(req, res, next) {
 });
 
 router.get('/first', function(req, res, next) {
-  connection.query('SELECT * FROM comics ORDER BY date DESC LIMIT 1', function (error, results, fields) {
+  connection.query('SELECT * FROM comics ORDER BY date ASC LIMIT 1', function (error, results, fields) {
     if(error){
       res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
       //If there is error, we send the error in the error section with 500 status
