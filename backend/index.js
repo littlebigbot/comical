@@ -10,7 +10,7 @@ var http = require('http');
 var credentials = require('./credentials.json');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var comics = require('./routes/comics');
 
 var app = express();
 
