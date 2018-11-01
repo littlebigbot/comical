@@ -21,7 +21,8 @@ app.set('views', path.resolve(__dirname, '../static'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.use(path.resolve(__dirname, '../static'), express.static('static'))
+
+app.use(express.static('../static'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
