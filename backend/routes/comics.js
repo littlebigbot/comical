@@ -36,33 +36,31 @@ router.get('/:slug/navigation', function(req, res, next) {
 
   console.log([previousQuery, nextQuery, randomQuery].join(' '));
 
-  connection.query([previousQuery, nextQuery, randomQuery].join(' '), ['previousSlug', 'nextSlug', 'randomSlug'])
-    .on('fields', function(fields, index) {
-      console.log('fields', fields, index);
-    })
-    .on('result', function(row, index) {
-      console.log('result', row, index);
-    });
+  var responseObject = {
+    previousSlug: null,
+    nextSlug: null,
+    randomSlug: null
+  }
 
-  // var currentQuery = 'SELECT date FROM comics WHERE slug ="' + req.params.slug + '"'
-  // connection.query('select slug from comics where 'date' < (select 'date' from comics where id=4) order by 'date' desc limit 1', function (error, results, fields) {
-  //   if(error){
-  //     res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
-  //     //If there is error, we send the error in the error section with 500 status
-  //   } else {
-  //     connection.query('select slug from comics where 'date' > (select 'date' from comics where id=4) order by 'date' desc limit 1', function (error2, results2, fields2) {
-  //       if(error){
-  //         res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
-  //         //If there is error, we send the error in the error section with 500 status
-  //       } else {
-  //         console.log(results, results2);
-  //         // res.send(JSON.stringify({"status": 200, "error": null, "response": [nextSlug: results]}));
-  //       }
-  //     });
-  //     // res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
-  //     //If there is no error, all is good and response is 200OK.
-  //   }
-  // });
+  connection.query([previousQuery, nextQuery, randomQuery].join(' '), ['previousSlug', 'nextSlug', 'randomSlug'])
+    .on('result', function(row, index) {
+      switch(index) {
+        case 0:
+          responseObject.previousSlug = row.slug;
+          break;
+        case 1:
+          responseObject.nextSlug = row.slug;
+          break;
+        case: 2:
+          responseObject.randomSlug = row.slug;
+          break;
+        default:
+          break;
+      }
+    })
+    .on('end', function() {
+      res.send(JSON.stringify({"status": 200, "error": null, "response": responseObject}));
+    });
 });
 
 module.exports = router;
