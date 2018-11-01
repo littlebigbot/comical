@@ -17,9 +17,9 @@ var comics = require('./routes/comics');
 var app = express();
 
 // view engine setup
-// app.set('views', path.resolve(__dirname, '../static'));
-// app.engine('html', require('ejs').renderFile);
-// app.set('view engine', 'html');
+app.set('views', path.resolve(__dirname, '../static'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use(path.resolve(__dirname, '../static'), express.static('static'))
 
