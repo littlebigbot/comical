@@ -8,7 +8,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const ROOT_PATH = path.resolve(__dirname);
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
-const BUILD_PATH = path.resolve(ROOT_PATH, 'static');
+const BUILD_PATH = path.resolve(ROOT_PATH, '../static');
 
 export default {
   mode: 'production',
