@@ -22,7 +22,11 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-app.use(express.static('../static'));
+app.use('../static', express.static('static'));
+
+app.use("*", function(req, resp) {
+  resp.sendFile("/static/index.html");
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
