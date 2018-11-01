@@ -50,8 +50,8 @@ app.use('/api/v1/comics', comics);
 
 
 app.use("*", function(req, resp) {
-  console.log(path.resolve(__dirname + '../../../static/index.html'));
-  res.sendFile(path.resolve(__dirname + '../../../static/index.html'));
+  console.log(path.resolve(__dirname + '../../static/index.html'));
+  resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
 });
 
 // catch 404 and forward to error handler
