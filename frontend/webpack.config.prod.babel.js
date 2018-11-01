@@ -8,7 +8,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const ROOT_PATH = path.resolve(__dirname);
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
-const BUILD_PATH = path.resolve(ROOT_PATH, 'dist');
+const BUILD_PATH = path.resolve(ROOT_PATH, 'static');
 
 export default {
   mode: 'production',
@@ -60,13 +60,13 @@ export default {
         exclude: /node_modules/,
         use: [
           'babel-loader',
-          {
-            loader: 'eslint-loader',
-            options: {
-              fix: true,
-              failOnError: true
-            }
-          }
+          // {
+          //   loader: 'eslint-loader',
+          //   options: {
+          //     fix: true,
+          //     failOnError: true
+          //   }
+          // }
         ]
       },
       {
