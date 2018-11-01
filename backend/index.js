@@ -50,7 +50,7 @@ app.use('/api/v1/comics', comics);
 
 
 app.use("*", function(req, resp) {
-  resp.sendFile("/index.html");
+  resp.sendFile("/static/index.html");
 });
 
 // catch 404 and forward to error handler
