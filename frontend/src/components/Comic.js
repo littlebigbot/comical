@@ -12,10 +12,13 @@ class Comic extends Component {
   constructor(props) {
     super(props);
 
-    const { getComic, getComicNavigation } = this.props;
-    
-    getComic();
-    getComicNavigation();
+    const { getComic, getComicNavigation, match } = this.props;
+
+    getComic(match.params.slug || 'last')
+      .then(() => {
+        const { slug } = this.props.comic.data.response;
+        getComicNavigation(slug);
+      });
   }
   render() {
     const { comic, navigation } = this.props;

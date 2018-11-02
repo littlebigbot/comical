@@ -21,7 +21,7 @@ class Root extends Component {
           <div>
             <Header/>
             <div styleName="styles.container">
-              <Route exact path={['/comic/:id', '/']} component={Comic} />
+              <Route exact path={['/comic/:slug', '/']} component={Comic} />
               <Route exact path="/archive" component={Archive} />
               <Route exact path="/about" component={About} />
             </div>
