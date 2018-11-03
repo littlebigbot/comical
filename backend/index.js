@@ -27,8 +27,8 @@ app.set('view engine', 'html');
 
 app.use(express.static(path.resolve(__dirname, '../static')));
 
-console.log(path.resolve(__dirname, '../../../comics'));
-app.use('/comics', express.static(path.resolve(__dirname, '../../../comics')))
+console.log(path.resolve(__dirname, '../../comics'));
+app.use('/comics', express.static(path.resolve(__dirname, '../../comics')))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
