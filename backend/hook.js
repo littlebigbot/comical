@@ -5,16 +5,15 @@ var execFile = require('child_process').execFile;
 
 console.log('im here!')
 
-gith({
-    repo: 'littlebigbot/comical'
-}).on( 'all', function( payload ) {
-    if( payload.branch === 'default' )
-    {
+gith({ repo: 'littlebigbot/comical' })
+  .on( 'all', function( payload ) {
+    console.log('on all')
+    if( payload.branch === 'default' ) {
       console.log('default!')
-            // Exec a shell script
-            execFile('/hook.sh', function(error, stdout, stderr) {
-                    // Log success in some manner
-                    console.log( 'exec complete' );
-            });
+      // Exec a shell script
+      execFile('/hook.sh', function(error, stdout, stderr) {
+        // Log success in some manner
+        console.log( 'exec complete' );
+      });
     }
-});
+  });
