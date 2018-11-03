@@ -11,7 +11,7 @@ gith({ repo: 'littlebigbot/comical' })
     if( payload.branch === 'default' ) {
       console.log('default!')
       // Exec a shell script
-      execFile('/hook.sh', function(error, stdout, stderr) {
+      execFile('./hook.sh', function(error, stdout, stderr) {
         // Log success in some manner
         console.log( 'exec complete' );
       });
