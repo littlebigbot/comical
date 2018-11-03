@@ -21,6 +21,18 @@ class Comic extends Component {
         }
       });
   }
+  componentDidUpdate(prevProps) {
+    if(prevProps.match.params.slug !== this.props.match.params.slug) {
+      const { getComic, getComicNavigation, match } = this.props;
+
+      getComic(match.params.slug || 'last')
+        .then((data) => {
+          if(data.response.response.slug) {
+            getComicNavigation(data.response.response.slug);
+          }
+        });
+    }
+  }
   render() {
     // const { comic, navigation } = this.props;
     const comic = this.props.comic.data;
@@ -29,7 +41,6 @@ class Comic extends Component {
     if(comic && navigation) {
       return <div styleName="Comic">
         <h2>{comic.response.title}</h2>
-
         <ComicNavigation {...navigation.response} />
         
         { navigation.response.nextSlug && <Link to={`/comic/${navigation.response.nextSlug}`} ></Link> }
