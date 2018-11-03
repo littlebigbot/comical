@@ -17,6 +17,8 @@ var comics = require('./routes/comics');
 
 var app = express();
 
+app.use(cors())
+
 // view engine setup
 app.set('views', path.resolve(__dirname, '../static'));
 app.engine('html', require('ejs').renderFile);
@@ -46,12 +48,12 @@ app.use(function(req, res, next){
 });
 
 // app.use('/', index);
-app.use('/api/v1/comics', cors(), comics);
+app.use('/api/v1/comics', comics);
 
-app.use("*", function(req, resp) {
-  console.log(path.resolve(__dirname + '../../static/index.html'));
-  resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
-});
+// app.use("*", function(req, resp) {
+//   console.log(path.resolve(__dirname + '../../static/index.html'));
+//   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
