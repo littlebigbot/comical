@@ -16,11 +16,11 @@ class ComicNavigation extends Component {
 
   }
   render() {
-    const { firstSlug, previousSlug, nextSlug, lastSlug, randomSlug } = this.props;
+    const { firstSlug, previousSlug, nextSlug, lastSlug, randomSlug, currentSlug } = this.props;
     return <nav styleName="ComicNavigation">
       <ul>
         <li>
-          <Link to={`/comic/${firstSlug}`}>
+          <Link disabled={firstSlug === currentSlug} to={`/comic/${firstSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faBackward} />
             <span>First</span>
           </Link>
@@ -50,7 +50,7 @@ class ComicNavigation extends Component {
           </Link>
         </li>
         <li>
-          <Link to={`/comic/${lastSlug}`}>
+          <Link disabled={lastSlug === currentSlug} to={`/comic/${lastSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faForward} />
             <span>Last</span>
           </Link>
