@@ -1,5 +1,58 @@
 @import "../constants";
+@import "../components";
+
+:global body {
+  padding-top: 100px;
+}
 
 .Header {
-  
+  height: 100px;
+  background: $divider-color;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  padding: 10px;
+
+  h1 {
+    position: relative;
+
+    small {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      font-size: 30%;
+    }
+  }
+
+  nav {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+
+    ul {
+      display: flex;
+    }
+
+    li {
+      margin: 0 10px;
+    }
+
+/*    a {
+      border-bottom: 3px solid transparent;
+    }
+
+    :global .active {
+      border-color: black;
+    }*/
+/*
+    span {
+      @extend %screen-reader-text;
+    }*/
+
+    svg {
+      display: none;
+    }
+  }
 }

@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import LightIcons from "@fortawesome/fontawesome-pro-light";
+import LightIcons from '@fortawesome/fontawesome-pro-light';
 import PropTypes from 'prop-types';
 import './ComicNavigation.css';
+import { isNull } from 'lodash';
 
 class ComicNavigation extends Component {
   constructor(props) {
@@ -15,43 +16,43 @@ class ComicNavigation extends Component {
 
   }
   render() {
-    const { previousId, nextId } = this.props;
+    const { firstSlug, previousSlug, nextSlug, lastSlug, randomSlug } = this.props;
     return <nav styleName="ComicNavigation">
       <ul>
         <li>
-          <Link to="/comic/first">
+          <Link to={`/comic/${firstSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faBackward} />
-            First
+            <span>First</span>
           </Link>
         </li>
         <li>
-          <Link to={`/comic/${previousId}`}>
+          <Link disabled={isNull(previousSlug)} to={`/comic/${previousSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faStepBackward} />
-            Previous
+            <span>Previous</span>
           </Link>
         </li>
         <li>
-          <Link to="/comic/random">
+          <Link to={`/comic/${randomSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faRandom} />
-            Random
+            <span>Random</span>
           </Link>
         </li>
         <li>
           <a onClick={this.openShareModal.bind(this)}>
             <FontAwesomeIcon icon={LightIcons.faShare} />
-            Share
+            <span>Share</span>
           </a>
         </li>
         <li>
-          <Link to={`/comic/${nextId}`}>
+          <Link disabled={isNull(nextSlug)} to={`/comic/${nextSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faStepForward} />
-            Next
+            <span>Next</span>
           </Link>
         </li>
         <li>
-          <Link to="/comic/last">
+          <Link to={`/comic/${lastSlug}`}>
             <FontAwesomeIcon icon={LightIcons.faForward} />
-            Last
+            <span>Last</span>
           </Link>
         </li>
       </ul>
@@ -60,9 +61,12 @@ class ComicNavigation extends Component {
 }
 
 ComicNavigation.propTypes = {
-  previousId: PropTypes.string.isRequired,
-  currentId: PropTypes.string.isRequired,
-  nextId: PropTypes.string.isRequired
+  previousSlug: PropTypes.string.isRequired,
+  currentSlug: PropTypes.string.isRequired,
+  nextSlug: PropTypes.string.isRequired,
+  firstSlug: PropTypes.string.isRequired,
+  lastSlug: PropTypes.string.isRequired,
+  randomSlug: PropTypes.string.isRequired
 }
 
 ComicNavigation = connect(state => state, {

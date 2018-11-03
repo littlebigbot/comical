@@ -15,26 +15,33 @@ class Comic extends Component {
     const { getComic, getComicNavigation, match } = this.props;
 
     getComic(match.params.slug || 'last')
-      .then(() => {
-        const { slug } = this.props.comic.data.response;
-        getComicNavigation(slug);
+      .then((data) => {
+        if(data.response.response.slug) {
+          getComicNavigation(data.response.response.slug);
+        }
       });
   }
   render() {
-    const { comic, navigation } = this.props;
-    return <div styleName="Comic">
-      <h2>{comic.title}</h2>
+    // const { comic, navigation } = this.props;
+    const comic = this.props.comic.data;
+    const navigation = this.props.navigation.data;
+    console.log('HIHIHI',comic, navigation)
+    if(comic && navigation) {
+      return <div styleName="Comic">
+        <h2>{comic.response.title}</h2>
 
-      <ComicNavigation {...navigation} />
-      
-      <Link to={`/comic/${navigation.nextSlug}`} >
-        <img src={`${COMICS_ROOT}${comic.slug}.png`} alt={comic.titleText} title={comic.titleText} />
-      </Link>
+        <ComicNavigation {...navigation.response} />
+        
+        { navigation.response.nextSlug && <Link to={`/comic/${navigation.response.nextSlug}`} ></Link> }
 
-      <ComicNavigation {...navigation} />
+        <img styleName="comic" src={`${COMICS_ROOT}${comic.response.slug}.png`} alt={comic.response.titleText} title={comic.response.titleText} />
 
-      <Post title={comic.title} post={comic.post} date={comic.date} />
-    </div>
+        <ComicNavigation {...navigation.response} />
+
+        <Post title={comic.response.title} post={comic.response.post} date={comic.response.date} />
+      </div>
+    }
+    return <div>Loading</div>;
   }
 }
 

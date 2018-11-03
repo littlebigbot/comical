@@ -1,5 +1,6 @@
 @import "../constants";
 
 .Post {
-  
+  padding: 10px;
+  background: #ffffff;
 }

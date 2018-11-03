@@ -1,5 +1,7 @@
 @import "../constants";
 
 .Comic {
-  
+  .comic {
+    margin: 0 auto;
+  }
 }

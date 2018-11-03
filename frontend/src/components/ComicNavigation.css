@@ -1,5 +1,19 @@
 @import "../constants";
+@import "../components";
 
 .ComicNavigation {
-  
+  margin: 0 auto;
+  a {
+    &[disabled] {
+      pointer-events: none;
+    }
+    span {
+      @extend %screen-reader-text;
+    }
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+  }
 }

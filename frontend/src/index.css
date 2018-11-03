@@ -2,13 +2,35 @@
 
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Roboto Mono';
+  font-family: 'Source Serif Pro', serif;
 }
 
+/*h1 {
+    position: relative;
+    left: 50%;
+    margin-top: 50%;
+    font-size: 95px;
+    color: white;
+    font-weight: 400 !important;
+}
+
+h1:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: #acdee2;
+    border-radius: 50%;
+    top: -190px;
+    left: -90px;
+    z-index: -1;
+}
+*/
 :global {
   * {
     font-size: 100%;
-    font-family: 'Roboto Mono', Helvetica, sans-serif;
+    font-family: 'Source Serif Pro', serif;
     font-weight: 100;
   }
 

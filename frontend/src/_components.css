@@ -1,14 +1,14 @@
 @import "./constants";
 
-%modal {
-  position: fixed;
-  width: 50%;
-  height: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: calc(10px + 9999px);
-  background: #ffffff;
-  border: 9999px solid color($dark-primary-color a(90%));
-  box-sizing: content-box;
+%screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
 }

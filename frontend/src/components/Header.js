@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import LightIcons from '@fortawesome/fontawesome-pro-light';
 import './Header.css';
 
 class Header extends Component {
@@ -11,18 +13,27 @@ class Header extends Component {
   render() {
     console.log(NavLink)
     return <header styleName="Header">
-      <h1>Wayward Robot</h1>
+      <h1><small>The</small> Wayward Robot</h1>
 
       <nav>
         <ul>
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/">
+              <FontAwesomeIcon icon={LightIcons.faHome} />
+              <span>Home</span>
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/about">
+              <FontAwesomeIcon icon={LightIcons.faQuestion} />
+              <span>About</span>
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/archive">Archive</NavLink>
+            <NavLink to="/archive">
+              <FontAwesomeIcon icon={LightIcons.faArchive} />
+              <span>Archive</span>
+            </NavLink>
           </li>
         </ul>
       </nav>
