@@ -20,7 +20,7 @@ export default {
   },
   output: {
     path: BUILD_PATH,
-    publicPath: './',
+    publicPath: '/',
     filename: '[name].[hash].js'
   },
   optimization: {
