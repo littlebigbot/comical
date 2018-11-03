@@ -25,10 +25,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-app.use('/', express.static(path.resolve(__dirname, '../static')));
 
-console.log(path.resolve(__dirname, '../../comics'));
-app.use('/comics', express.static(path.resolve(__dirname, '../../comics')))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -58,10 +55,15 @@ app.use('/api/v1/comics', comics);
 //   console.log(resp);
 // });
 
-// app.use("*", function(req, resp) {
-//   console.log(path.resolve(__dirname + '../../static/index.html'));
-//   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
-// });
+app.use("*", function(req, resp) {
+  console.log(path.resolve(__dirname + '../../static/index.html'));
+  resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
+});
+
+app.use('/', express.static(path.resolve(__dirname, '../static')));
+
+console.log(path.resolve(__dirname, '../../comics'));
+app.use('/comics', express.static(path.resolve(__dirname, '../../comics')))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
