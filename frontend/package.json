@@ -1,5 +1,5 @@
 {
-  "name": "kindred",
+  "name": "comical",
   "version": "1.0.0",
   "description": "a chat",
   "main": "index.js",
@@ -33,7 +33,6 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
-    "recharts": "^1.0.0-beta.10",
     "redux": "^4.0.0",
     "redux-act": "^1.7.4",
     "redux-act-async": "^1.7.0",
@@ -52,7 +51,6 @@
     "babel-plugin-extensible-destructuring": "^4.2.3",
     "babel-plugin-react-css-modules": "^3.4.2",
     "babel-plugin-react-transform": "^3.0.0",
-    "babel-plugin-recharts": "^1.2.0",
     "babel-plugin-relative-import": "^1.0.3",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
