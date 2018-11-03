@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import LightIcons from '@fortawesome/fontawesome-pro-light';
@@ -61,15 +60,12 @@ class ComicNavigation extends Component {
 }
 
 ComicNavigation.propTypes = {
-  previousSlug: PropTypes.string.isRequired,
+  previousSlug: PropTypes.string,
   currentSlug: PropTypes.string.isRequired,
-  nextSlug: PropTypes.string.isRequired,
+  nextSlug: PropTypes.string,
   firstSlug: PropTypes.string.isRequired,
   lastSlug: PropTypes.string.isRequired,
   randomSlug: PropTypes.string.isRequired
 }
-
-ComicNavigation = connect(state => state, {
-})(ComicNavigation)
 
 export default ComicNavigation

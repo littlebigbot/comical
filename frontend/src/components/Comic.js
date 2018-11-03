@@ -34,22 +34,21 @@ class Comic extends Component {
     }
   }
   render() {
-    // const { comic, navigation } = this.props;
-    const comic = this.props.comic.data;
-    const navigation = this.props.navigation.data;
-    console.log('HIHIHI',comic, navigation)
-    if(comic && navigation) {
+    const { comic, navigation, loading } = this.props;
+    if(comic && navigation && !loading) {
       return <div styleName="Comic">
-        <h2>{comic.response.title}</h2>
-        <ComicNavigation {...navigation.response} />
+        <h2>{comic.title}</h2>
+        <ComicNavigation {...navigation} />
         
-        { navigation.response.nextSlug && <Link to={`/comic/${navigation.response.nextSlug}`} ></Link> }
+        <div styleName="comic-wrap">
+          { navigation.nextSlug && <Link to={`/comic/${navigation.nextSlug}`} ></Link> }
 
-        <img styleName="comic" src={`${COMICS_ROOT}${comic.response.slug}.png`} alt={comic.response.titleText} title={comic.response.titleText} />
+          <img src={`${COMICS_ROOT}${comic.slug}.png`} alt={comic.titleText} title={comic.titleText} />
+        </div>
 
-        <ComicNavigation {...navigation.response} />
+        <ComicNavigation {...navigation} />
 
-        <Post title={comic.response.title} post={comic.response.post} date={comic.response.date} />
+        <Post title={comic.title} post={comic.post} date={comic.date} />
       </div>
     }
     return <div>Loading</div>;
@@ -60,10 +59,18 @@ Comic.propTypes = {
   comic: PropTypes.object,
   navigation: PropTypes.object,
   getComic: PropTypes.func,
-  getComicNavigation: PropTypes.func
+  getComicNavigation: PropTypes.func,
+  loading: PropTypes.bool
 }
 
-Comic = connect(state => state, {
+Comic = connect(state => {
+
+  return {
+    comic: state.comic.data ? state.comic.data.response : null,
+    loading: state.comic.loading,
+    navigation: state.navigation.data ? state.navigation.data.response : null
+  }
+}, {
   getComic,
   getComicNavigation
 })(Comic)

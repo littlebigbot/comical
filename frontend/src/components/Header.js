@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -18,7 +17,7 @@ class Header extends Component {
       <nav>
         <ul>
           <li>
-            <NavLink to="/">
+            <NavLink exact to="/">
               <FontAwesomeIcon icon={LightIcons.faHome} />
               <span>Home</span>
             </NavLink>
@@ -43,8 +42,5 @@ class Header extends Component {
 
 Header.propTypes = {
 }
-
-Header = connect(state => state, {
-})(Header)
 
 export default Header

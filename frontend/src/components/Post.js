@@ -1,8 +1,4 @@
-// This is just a blank template for faster
-// creation of new components
-
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Post.css';
 
@@ -20,8 +16,5 @@ class Post extends Component {
 
 Post.propTypes = {
 }
-
-Post = connect(state => state, {
-})(Post)
 
 export default Post
