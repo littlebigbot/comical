@@ -53,6 +53,11 @@ app.use(function(req, res, next){
 // app.use('/', index);
 app.use('/api/v1/comics', comics);
 
+app.use('/comics/*.png', function(req, resp) {
+  console.log(req);
+  console.log(resp);
+});
+
 app.use("*", function(req, resp) {
   console.log(path.resolve(__dirname + '../../static/index.html'));
   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
