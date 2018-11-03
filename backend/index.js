@@ -25,7 +25,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-app.use(express.static(path.resolve(__dirname, '../static')));
+app.use('/', express.static(path.resolve(__dirname, '../static')));
 
 console.log(path.resolve(__dirname, '../../comics'));
 app.use('/comics', express.static(path.resolve(__dirname, '../../comics')))
