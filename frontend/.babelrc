@@ -4,7 +4,6 @@
     "env"
   ],
   "plugins": [
-    "recharts",
     "react-hot-loader/babel",
     "transform-object-rest-spread",
     "react-css-modules",
