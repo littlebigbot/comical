@@ -58,10 +58,10 @@ app.use('/api/v1/comics', comics);
 //   console.log(resp);
 // });
 
-app.use("*", function(req, resp) {
-  console.log(path.resolve(__dirname + '../../static/index.html'));
-  resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
-});
+// app.use("*", function(req, resp) {
+//   console.log(path.resolve(__dirname + '../../static/index.html'));
+//   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
