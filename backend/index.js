@@ -17,7 +17,13 @@ var comics = require('./routes/comics');
 
 var app = express();
 
-app.use(cors())
+// app.use(cors())
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // view engine setup
 app.set('views', path.resolve(__dirname, '../static'));
@@ -50,10 +56,10 @@ app.use(function(req, res, next){
 // app.use('/', index);
 app.use('/api/v1/comics', comics);
 
-// app.use("*", function(req, resp) {
-//   console.log(path.resolve(__dirname + '../../static/index.html'));
-//   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
-// });
+app.use("*", function(req, resp) {
+  console.log(path.resolve(__dirname + '../../static/index.html'));
+  resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
