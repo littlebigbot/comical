@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql= require('mysql');
 var http = require('http');
-var cors = require('cors')
 
 var credentials = require('./credentials.json');
 
@@ -17,19 +16,17 @@ var comics = require('./routes/comics');
 
 var app = express();
 
-// app.use(cors())
+// view engine setup
+app.set('views', path.resolve(__dirname, '../static'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-// view engine setup
-app.set('views', path.resolve(__dirname, '../static'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
 
 app.use(express.static(path.resolve(__dirname, '../static')));
 
