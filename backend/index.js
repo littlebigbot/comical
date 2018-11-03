@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql= require('mysql');
 var http = require('http');
+var cors = require('cors')
 
 var credentials = require('./credentials.json');
 
@@ -15,6 +16,8 @@ var index = require('./routes/index');
 var comics = require('./routes/comics');
 
 var app = express();
+
+app.use(cors())
 
 // view engine setup
 app.set('views', path.resolve(__dirname, '../static'));
