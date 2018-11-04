@@ -58,7 +58,13 @@ app.use('/api/v1/comics', comics);
 //   console.log(resp);
 // });
 
-app.use("*", function(req, resp) {
+// @TODO: use a better way
+app.use([
+  '/',
+  '/comic/:slug',
+  '/about',
+  '/archive'
+  ], function(req, resp) {
   console.log(path.resolve(__dirname + '../../static/index.html'));
   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
 });
