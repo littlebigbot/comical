@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import thunk from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware, connectRouter } from 'connected-react-router'
 // import createSagaMiddleware from 'redux-saga'
 import Root from './components/Root'
@@ -17,11 +17,13 @@ const historyMiddleware = routerMiddleware(history);
 
 // export const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  connectRouter(history)(rootReducer),
-  applyMiddleware(logger),
-  //applyMiddleware(sagaMiddleware)
-  applyMiddleware(thunk),
-  applyMiddleware(historyMiddleware),
+  compose(
+    connectRouter(history)(rootReducer),
+    applyMiddleware(logger),
+    //applyMiddleware(sagaMiddleware)
+    applyMiddleware(thunk),
+    applyMiddleware(historyMiddleware),
+  )
 );
 
 window.store = store;
