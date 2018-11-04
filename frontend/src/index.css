@@ -1,10 +1,5 @@
 @import './constants';
 
-
-h1,h2,h3,h4,h5,h6 {
-  font-family: 'Source Serif Pro', serif;
-}
-
 /*h1 {
     position: relative;
     left: 50%;
@@ -30,8 +25,37 @@ h1:before {
 :global {
   * {
     font-size: 100%;
-    font-family: 'Source Serif Pro', serif;
-    font-weight: 100;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  h2 {
+    font-size: 2.5em;
+  }
+
+  h3 {
+    font-size: 1.75em;
+  }
+
+  h4 {
+    font-size: 1.5em;
+  }
+
+  h5 {
+    font-size: 1.25em;
+  }
+
+  h6 {
+    font-size: 1em;
   }
 
   html {
@@ -45,10 +69,6 @@ h1:before {
   }
 
   strong {
-    font-weight: 400;
-  }
-
-  h1,h2,h3,h4,h5,h6 {
     font-weight: 700;
   }
 

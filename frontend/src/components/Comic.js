@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Moment from 'react-moment';
 import { getComic, getComicNavigation } from '~/actions'
 import { COMICS_ROOT } from '~/constants'
 import ComicNavigation from './ComicNavigation';
@@ -37,13 +38,17 @@ class Comic extends Component {
     const { comic, navigation, loading } = this.props;
     if(comic && navigation && !loading) {
       return <div styleName="Comic">
-        <h2>{comic.title}</h2>
+        <h2>
+          {comic.title}
+          <small>(<Moment format="YYYY/MM/DD">{comic.date}</Moment>)</small>
+        </h2>
+
         <ComicNavigation {...navigation} />
         
         <div styleName="comic-wrap">
-          { navigation.nextSlug && <Link to={`/comic/${navigation.nextSlug}`} ></Link> }
-
-          <img src={`${COMICS_ROOT}${comic.slug}.png`} alt={comic.titleText} title={comic.titleText} />
+          <Link to={navigation.nextSlug ? `/comic/${navigation.nextSlug}` : '/'} >
+            <img src={`${COMICS_ROOT}${comic.slug}.png`} alt={comic.title_text} title={comic.title_text} />
+          </Link>
         </div>
 
         <ComicNavigation {...navigation} />

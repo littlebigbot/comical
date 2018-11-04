@@ -2,9 +2,12 @@
 @import "../components";
 
 .ComicNavigation {
-  margin: 0 auto;
+  margin: 20px auto;
   a {
+    color: $primary-text-color;
+
     &[disabled] {
+      color: $secondary-text-color;
       pointer-events: none;
     }
     span {
@@ -14,6 +17,6 @@
 
   ul {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
   }
 }

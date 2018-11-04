@@ -4,10 +4,11 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import 'normalize.css/normalize.css'
 import { hot } from 'react-hot-loader'
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Comic from './Comic';
 import About from './About';
 import Archive from './Archive';
+import Error from './Error';
 import Header from './Header';
 
 import styles from './Root.css';
@@ -21,9 +22,13 @@ class Root extends Component {
           <div>
             <Header/>
             <div styleName="styles.container">
-              <Route exact path={['/comic/:slug', '/']} component={Comic} />
-              <Route exact path="/archive" component={Archive} />
-              <Route exact path="/about" component={About} />
+              <Switch>
+                <Route exact path={['/comic/:slug', '/']} component={Comic} />
+                <Route exact path="/archive" component={Archive} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/about" component={About} />
+                <Route component={Error} />
+              </Switch>
             </div>
           </div>
         </ConnectedRouter>

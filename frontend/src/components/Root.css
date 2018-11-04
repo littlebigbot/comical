@@ -3,5 +3,8 @@ a {
 }
 
 .container {
-
+  padding: 10px;
+/*/*  width: calc(100% - 20px);*/
+  margin: 0 auto;
+  max-width: 1200px;
 }

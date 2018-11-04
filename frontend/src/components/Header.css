@@ -1,12 +1,14 @@
 @import "../constants";
 @import "../components";
 
+$header-size: 150px;
+
 :global body {
-  padding-top: 100px;
+  padding-top: $header-size;
 }
 
 .Header {
-  height: 100px;
+  height: $header-size;
   background: $divider-color;
   position: absolute;
   top: 0;
@@ -14,22 +16,26 @@
   left: 0;
   display: flex;
   padding: 10px;
+  align-items: center;
 
-  h1 {
-    position: relative;
-
-    small {
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      font-size: 30%;
-    }
+  > a {
+    color: $accent-color
   }
+
+/*  h1 {
+    margin: 0;
+    color: $light-primary-color;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-weight: 100;
+    font-size: 3em;
+  }*/
 
   nav {
     position: absolute;
-    bottom: 0;
     right: 10px;
+    bottom: 0px;
+    text-align: right;
 
     ul {
       display: flex;
@@ -39,20 +45,31 @@
       margin: 0 10px;
     }
 
-/*    a {
-      border-bottom: 3px solid transparent;
+    a {
+      color: #fff;
+      border-bottom: 5px solid transparent;
+    }
+    :global .active {
+      border-bottom: 5px solid #fff;
+      padding-bottom: 5px;
+      display: block;
     }
 
-    :global .active {
-      border-color: black;
-    }*/
-/*
     span {
       @extend %screen-reader-text;
-    }*/
+    }
+  }
 
-    svg {
-      display: none;
+  h1 {
+    position: relative;
+    font-size: 3em;
+    margin: 0;
+
+    small {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      font-size: 30%;
     }
   }
 }

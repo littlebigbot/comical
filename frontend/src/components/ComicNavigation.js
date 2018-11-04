@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import LightIcons from '@fortawesome/fontawesome-pro-light';
+import * as Icons from '@fortawesome/pro-light-svg-icons';
 import PropTypes from 'prop-types';
 import './ComicNavigation.css';
 import { isNull } from 'lodash';
@@ -19,38 +19,38 @@ class ComicNavigation extends Component {
     return <nav styleName="ComicNavigation">
       <ul>
         <li>
-          <Link disabled={firstSlug === currentSlug} to={`/comic/${firstSlug}`}>
-            <FontAwesomeIcon icon={LightIcons.faBackward} />
+          <Link title="First" disabled={firstSlug === currentSlug} to={`/comic/${firstSlug}`}>
+            <FontAwesomeIcon size="2x" icon={Icons.faBackward} />
             <span>First</span>
           </Link>
         </li>
         <li>
-          <Link disabled={isNull(previousSlug)} to={`/comic/${previousSlug}`}>
-            <FontAwesomeIcon icon={LightIcons.faStepBackward} />
+          <Link title="Previous" disabled={isNull(previousSlug)} to={`/comic/${previousSlug}`}>
+            <FontAwesomeIcon size="2x" icon={Icons.faStepBackward} />
             <span>Previous</span>
           </Link>
         </li>
         <li>
-          <Link to={`/comic/${randomSlug}`}>
-            <FontAwesomeIcon icon={LightIcons.faRandom} />
+          <Link title="Random" to={`/comic/${randomSlug}`}>
+            <FontAwesomeIcon size="2x" icon={Icons.faRandom} />
             <span>Random</span>
           </Link>
         </li>
         <li>
-          <a onClick={this.openShareModal.bind(this)}>
-            <FontAwesomeIcon icon={LightIcons.faShare} />
+          <a title="Share" onClick={this.openShareModal.bind(this)}>
+            <FontAwesomeIcon size="2x" icon={Icons.faShareAlt} />
             <span>Share</span>
           </a>
         </li>
         <li>
-          <Link disabled={isNull(nextSlug)} to={`/comic/${nextSlug}`}>
-            <FontAwesomeIcon icon={LightIcons.faStepForward} />
+          <Link title="Next" disabled={isNull(nextSlug)} to={`/comic/${nextSlug}`}>
+            <FontAwesomeIcon size="2x" icon={Icons.faStepForward} />
             <span>Next</span>
           </Link>
         </li>
         <li>
-          <Link disabled={lastSlug === currentSlug} to={`/comic/${lastSlug}`}>
-            <FontAwesomeIcon icon={LightIcons.faForward} />
+          <Link title="Last" disabled={lastSlug === currentSlug} to={`/comic/${lastSlug}`}>
+            <FontAwesomeIcon size="2x" icon={Icons.faForward} />
             <span>Last</span>
           </Link>
         </li>

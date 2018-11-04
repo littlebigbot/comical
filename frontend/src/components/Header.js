@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import LightIcons from '@fortawesome/fontawesome-pro-light';
+import * as Icons from '@fortawesome/pro-light-svg-icons';
 import './Header.css';
 
 class Header extends Component {
@@ -12,26 +12,28 @@ class Header extends Component {
   render() {
     console.log(NavLink)
     return <header styleName="Header">
-      <h1><small>The</small> Wayward Robot</h1>
+      <Link to="/">
+        <h1><small>The</small>Wayward Robot</h1>
+      </Link>
 
       <nav>
         <ul>
           <li>
-            <NavLink exact to="/">
-              <FontAwesomeIcon icon={LightIcons.faHome} />
+            <NavLink title="Home" exact to="/">
               <span>Home</span>
+              <FontAwesomeIcon size="2x" icon={Icons.faHome} />
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about">
-              <FontAwesomeIcon icon={LightIcons.faQuestion} />
+            <NavLink title="About" to="/about">
               <span>About</span>
+              <FontAwesomeIcon size="2x" icon={Icons.faQuestion} />
             </NavLink>
           </li>
           <li>
-            <NavLink to="/archive">
-              <FontAwesomeIcon icon={LightIcons.faArchive} />
+            <NavLink title="Archive" to="/archive">
               <span>Archive</span>
+              <FontAwesomeIcon size="2x" icon={Icons.faArchive} />
             </NavLink>
           </li>
         </ul>

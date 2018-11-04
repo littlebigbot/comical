@@ -3,4 +3,11 @@
 .Post {
   padding: 10px;
   background: #ffffff;
+
+  h2 {
+    margin-top:0;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
 }
