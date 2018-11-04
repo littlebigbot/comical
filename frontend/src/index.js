@@ -16,8 +16,10 @@ const history = createHistory();
 const historyMiddleware = routerMiddleware(history);
 
 // export const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  compose(
+  composeEnhancers(
     connectRouter(history)(rootReducer),
     applyMiddleware(logger),
     //applyMiddleware(sagaMiddleware)
