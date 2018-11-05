@@ -1,5 +1,5 @@
 import { API_ROOT } from '~/constants';
-import { makeUrl } from '~/utility';
+import { makeUrl, serialize } from '~/utility';
 // import camelize from 'camelize';
 
 export const api = (endpoint, config) => {
@@ -22,3 +22,35 @@ export const api = (endpoint, config) => {
 export const apiGetComics = () => api('/comics/');
 export const apiGetComic = slug => slug ? api(`/comics/${slug}`) : Promise.reject('slug is required');
 export const apiGetComicNavigation = slug => slug ? api(`/comics/${slug}/navigation`) : Promise.reject('slug is required');
+
+export const apiLogin = creds => {
+  if(!creds) {
+    return Promise.reject('need creds');
+  }
+
+  const config = {
+    method: 'POST',
+    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    body: serialize(creds)
+  }
+
+  return api('/auth/login', config);
+}
+
+
+export const apiSignUp = creds => {
+  if(!creds) {
+    return Promise.reject('need creds');
+  }
+
+  const config = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(creds)
+  }
+
+  return api('/auth/signUp', config);
+}

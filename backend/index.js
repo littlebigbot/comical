@@ -14,6 +14,7 @@ var credentials = require('./credentials.json');
 
 var index = require('./routes/index');
 var comics = require('./routes/comics');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -52,6 +53,7 @@ app.use(function(req, res, next){
 
 // app.use('/', index);
 app.use('/api/v1/comics', comics);
+app.use('/api/v1/auth', auth);
 
 // app.use('/comics/*.png', function(req, resp) {
 //   console.log(req);
@@ -63,7 +65,8 @@ app.use([
   '/',
   '/comic/:slug',
   '/about',
-  '/archive'
+  '/archive',
+  '/admin/*'
   ], function(req, resp) {
   console.log(path.resolve(__dirname + '../../static/index.html'));
   resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
