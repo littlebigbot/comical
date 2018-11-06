@@ -34,7 +34,8 @@ module.exports = {
         allowNull: false
       },
       deleted: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

@@ -21,7 +21,8 @@ router.post('/', upload, validateToken, (req, res) => {
       titleText: req.body.titleText,
       date: new Date(),
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      deleted: false
     })
     .then(comic => {
       res.send(JSON.stringify({status: 200, error: null, response: comic}));
@@ -32,7 +33,8 @@ router.get('/last', (req, res) => {
   Comic
     .findOne({
       attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date'],
-      order: [ ['date', 'DESC'] ]
+      order: [ ['date', 'DESC'] ],
+      where: { deleted: false }
     })
     .then(comic => {
       res.send(JSON.stringify({status: 200, error: null, response: comic}));
@@ -101,29 +103,31 @@ router.get('/:slug/navigation', (req, res) => {
       const first = models.Comic
         .findOne({
           attributes: ['slug'],
-          order: [ ['date', 'ASC'] ]
+          order: [ ['date', 'ASC'] ],
+          where: { deleted: false }
         });
       const previous = models.Comic
         .findOne({
           attributes: ['slug'],
-          where: { date: { [Op.lt]: comic.date } },
+          where: { date: { [Op.lt]: comic.date }, deleted: false },
           order: [ ['date', 'DESC'] ]
         });
       const next = models.Comic
         .findOne({
           attributes: ['slug'],
-          where: { date: { [Op.gt]: comic.date } },
+          where: { date: { [Op.gt]: comic.date }, deleted: false },
           order: [ ['date', 'ASC'] ]
         });
       const last = models.Comic
         .findOne({
           attributes: ['slug'],
-          order: [ ['date', 'DESC'] ]
+          order: [ ['date', 'DESC'] ],
+          where: { deleted: false }
         });
       const random = models.Comic
         .findOne({
           attributes: ['slug'],
-          where: { slug: { [Op.ne]: req.params.slug } },
+          where: { slug: { [Op.ne]: req.params.slug }, deleted: false },
           order: sequelize.random()
         });
 
