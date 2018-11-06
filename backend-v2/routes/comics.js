@@ -51,7 +51,6 @@ router.get('/:slug', (req, res) => {
 })
 
 router.post('/:slug', upload, validateToken, (req, res, next) => {
-  res.send(200);
 
   const fields = ['title','post','slug','titleText','date'];
   let updateObject = {updatedAt: new Date()}
@@ -59,7 +58,7 @@ router.post('/:slug', upload, validateToken, (req, res, next) => {
   if(req.file) {
     updateObject.image = req.file.location
   }
-  fields.reduce((r, field) => {
+  updateObject = fields.reduce((r, field) => {
     if(req.body[field]) {
       r[field] = req.body[field];
     }
@@ -71,10 +70,10 @@ router.post('/:slug', upload, validateToken, (req, res, next) => {
   Comic
     .update(
       updateObject,
-      {returning: true, where: {slug:req.params.slug}}
+      { where: {slug: req.params.slug} }
     )
-    .then((a,b,c) => {
-      console.log(a,b,c);
+    .then(() => {
+      res.send(JSON.stringify({status: 200, error: null, response: 'OK'}));
       // res.sendStatus(200);
     })
     .catch(next)

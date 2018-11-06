@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import './index.css';
 import NewComic from './NewComic';
 import UpdateComic from './UpdateComic'
+import Comics from './Comics'
 import Login from './Login';
 import PublicRoute from '~/components/PublicRoute';
 
@@ -17,15 +18,14 @@ class Admin extends Component {
     const { match } = this.props;
     return <div styleName="Admin">
       <ul>
-        <li><Link to={`${match.path}`}>Admin Home</Link></li>
         <li><Link to={`${match.path}/comics/new`}>New Comic</Link></li>
-        <li><Link to={`${match.path}/comics`}>Bulk Edit</Link></li>
+        <li><Link to={`${match.path}/comics`}>Comics</Link></li>
       </ul>
 
       <PublicRoute path={`${match.path}/login`} component={Login} />
       <Switch>
         <Route path={`${match.path}/comics/new`} component={NewComic} />
-        {/*<Route exact path={`${match.path}/comics`} component={Comics} />*/}
+        <Route exact path={`${match.path}/comics`} component={Comics} />
         <Route path={`${match.path}/comics/:slug`} component={UpdateComic} />
       </Switch>
     </div>

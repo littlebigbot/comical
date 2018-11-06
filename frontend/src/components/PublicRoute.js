@@ -7,7 +7,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
     !isAuthenticated()
       ? <Component {...props} />
       : <Redirect to={{
-          pathname: '/admin/comics/new',
+          pathname: '/admin/comics',
           state: { from: props.location }
         }} />
   )} />

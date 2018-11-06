@@ -23,10 +23,32 @@ class UpdateComic extends Component {
       image: null
     }
   }
+  componentDidUpdate(prevProps) {
+    if(prevProps.match.params.slug !== this.props.match.params.slug) {
+      const { getComic, getComicNavigation, match } = this.props;
+
+      this.setState({
+        title: '',
+        slug: '',
+        titleText: '',
+        post: '',
+        image: null
+      });
+
+      getComic(match.params.slug || 'last')
+        .then(() => {
+          const { comic } = this.props;
+          this.setState(comic)
+        });
+    }
+  }
   handleSubmit(e) {
     e.preventDefault();
     
-    this.props.updateComic(this.state, this.props.comic.slug);
+    this.props.updateComic(this.state, this.props.comic.slug)
+      .then(() => {
+        this.props.history.push(`/admin/comics/${this.state.slug}`);
+      })
   }
   render() {
     const { title, slug, titleText, post, image, urlImage, date } = this.state;

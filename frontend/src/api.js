@@ -110,6 +110,9 @@ export const apiUpdateComic = (fields, slug) => {
 
   const config = {
     method: 'POST',
+    headers: {
+      'Accept': 'application/json'
+    },
     body: formData
   }
 
