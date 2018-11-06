@@ -3,7 +3,7 @@ import { makeUrl, serialize } from '~/utility';
 import storage from 'store';
 // import camelize from 'camelize';
 
-export const api = (endpoint, config) => {
+export const api = (endpoint, config = {}) => {
   const url = makeUrl(API_ROOT, endpoint);
 
   const jwt = storage.get('jwt');
@@ -32,7 +32,7 @@ export const api = (endpoint, config) => {
     })
 }
 
-export const apiGetComics = () => api('/comics/');
+export const apiGetComics = () => api('/comics');
 export const apiGetComic = slug => slug ? api(`/comics/${slug}`) : Promise.reject('slug is required');
 export const apiGetComicNavigation = slug => slug ? api(`/comics/${slug}/navigation`) : Promise.reject('slug is required');
 
@@ -88,5 +88,30 @@ export const apiCreateComic = fields => {
     body: formData
   }
 
-  return api('/comics/create', config);
+  return api('/comics', config);
+}
+
+export const apiUpdateComic = (fields, slug) => {
+  if(!fields) {
+    return Promise.reject('need fields');
+  }
+
+  if(typeof fields.image === 'string') {
+    delete fields.image;
+  }
+
+  var formData = new FormData();
+
+  for(var name in fields) {
+    if(fields[name]) {
+      formData.append(name, fields[name]);
+    }
+  }
+
+  const config = {
+    method: 'POST',
+    body: formData
+  }
+
+  return api(`/comics/${slug}`, config);
 }

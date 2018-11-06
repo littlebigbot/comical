@@ -1,10 +1,16 @@
 const express = require('express');
 const upload = require('../services/upload');
 const router = express.Router();
-const Comic = require('../models').Comic;
+const models = require('../models');
 const validateToken = require('../utils').validateToken;
 
-router.post('/create', upload, validateToken, (req, res) => {
+// Sequelize stuff
+const Comic = models.Comic;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const sequelize = models.sequelize;
+
+router.post('/', upload, validateToken, (req, res) => {
 
   Comic
     .create({
@@ -26,7 +32,7 @@ router.get('/last', (req, res) => {
   Comic
     .findOne({
       attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date'],
-      order: [ ['date', 'ASC'] ]
+      order: [ ['date', 'DESC'] ]
     })
     .then(comic => {
       res.send(JSON.stringify({status: 200, error: null, response: comic}));
@@ -42,6 +48,48 @@ router.get('/:slug', (req, res) => {
     .then(comic => {
       res.send(JSON.stringify({status: 200, error: null, response: comic}));
     })
+})
+
+router.post('/:slug', upload, validateToken, (req, res, next) => {
+  res.send(200);
+
+  const fields = ['title','post','slug','titleText','date'];
+  let updateObject = {updatedAt: new Date()}
+
+  if(req.file) {
+    updateObject.image = req.file.location
+  }
+  fields.reduce((r, field) => {
+    if(req.body[field]) {
+      r[field] = req.body[field];
+    }
+    return r;
+  }, updateObject)
+
+  console.log(updateObject);
+
+  Comic
+    .update(
+      updateObject,
+      {returning: true, where: {slug:req.params.slug}}
+    )
+    .then((a,b,c) => {
+      console.log(a,b,c);
+      // res.sendStatus(200);
+    })
+    .catch(next)
+})
+
+router.delete('/:slug', validateToken, (req, res) => {
+  Comic
+    .update(
+      {deleted: true},
+      {where: {slug: req.params.slug}}
+    )
+    .then(rowsUpdated => {
+      res.json(rowsUpdated);
+    })
+    .catch(next) 
 })
 
 router.get('/:slug/navigation', (req, res) => {
@@ -65,7 +113,7 @@ router.get('/:slug/navigation', (req, res) => {
       const next = models.Comic
         .findOne({
           attributes: ['slug'],
-          where: { date: { [Op.lt]: comic.date } },
+          where: { date: { [Op.gt]: comic.date } },
           order: [ ['date', 'ASC'] ]
         });
       const last = models.Comic

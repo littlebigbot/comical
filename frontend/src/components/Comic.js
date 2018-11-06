@@ -47,7 +47,7 @@ class Comic extends Component {
         
         <div styleName="comic-wrap">
           <Link to={navigation.nextSlug ? `/comic/${navigation.nextSlug}` : '/'} >
-            <img src={`${COMICS_ROOT}${comic.slug}.png`} alt={comic.title_text} title={comic.title_text} />
+            <img src={comic.image} alt={comic.title_text} title={comic.title_text} />
           </Link>
         </div>
 

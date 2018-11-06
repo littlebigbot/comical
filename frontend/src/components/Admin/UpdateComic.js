@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createComic } from '~/actions';
-import './AdminComic.css';
+import { updateComic, getComic } from '~/actions';
+import './UpdateComic.css';
 
-class AdminComic extends Component {
+class UpdateComic extends Component {
   constructor(props) {
     super(props);
+
+    const { getComic, match } = this.props;
+
+    getComic(match.params.slug || 'last')
+      .then((data) => {
+        const { comic } = this.props;
+        this.setState(comic)
+      });
     this.state = {
       title: '',
       slug: '',
@@ -18,12 +26,12 @@ class AdminComic extends Component {
   handleSubmit(e) {
     e.preventDefault();
     
-    this.props.createComic(this.state);
+    this.props.updateComic(this.state, this.props.comic.slug);
   }
   render() {
-    const { title, slug, titleText, post } = this.state;
-    return <div styleName="AdminComic">
-      <h2>New Comic</h2>
+    const { title, slug, titleText, post, image, urlImage, date } = this.state;
+    return <div styleName="UpdateComic">
+      <h2>Update Comic</h2>
       <form onSubmit={this.handleSubmit.bind(this)}>
         <input
           type="text"
@@ -49,20 +57,22 @@ class AdminComic extends Component {
           required
           onChange={e => this.setState({titleText: e.target.value})}
         />
-        <input
-          type="text"
-          name="titleText"
-          value={titleText}
-          placeholder="Title Text"
+        {/*<input
+          type="date"
+          name="date"
+          value={date}
           required
-          onChange={e => this.setState({titleText: e.target.value})}
-        />
+          onChange={e => this.setState({date: e.target.value})}
+        />*/}
         <input
           type="file"
           name="image"
-          required
-          onChange={e => this.setState({image: e.target.files[0]})}
+          onChange={e => this.setState({image: e.target.files[0], urlImage: URL.createObjectURL(e.target.files[0])})}
         />
+        { typeof image === 'string'
+           ? <img src={image} />
+           : <img src={urlImage} />
+         }
         <textarea
           name="post"
           value={post}
@@ -70,17 +80,22 @@ class AdminComic extends Component {
           required
           onChange={e => this.setState({post: e.target.value})}
         />
-        <button type="submit">Create</button>
+        <button type="submit">Update</button>
       </form>
     </div>
   }
 }
 
-AdminComic.propTypes = {
+UpdateComic.propTypes = {
 }
 
-AdminComic = connect(state => state, {
-  createComic
-})(AdminComic)
+UpdateComic = connect(state => {
+  return {
+    comic: state.comic.data ? state.comic.data.response : null
+  }
+}, {
+  getComic,
+  updateComic
+})(UpdateComic)
 
-export default AdminComic
+export default UpdateComic
