@@ -14,3 +14,4 @@ Hi folks!
 - [x] get PM2 to actually run and manage running the app
 - [x] webhookz
 - [ ] proper dev environment (so to get rid of cors)
+- [ ] improve webhooks

@@ -21,10 +21,17 @@ class Login extends Component {
       }
     }
   }
+  handleLogin(e) {
+    e.preventDefault();
+    this.props.login(this.state.login)
+      .then(() => {
+        this.props.history.push('/admin/comic/new')
+      })
+  }
   render() {
     const { login, signUp } = this.state;
     return <div styleName="Login">
-      <form onSubmit={e => { e.preventDefault(); this.props.login(login) }} >
+      <form onSubmit={this.handleLogin.bind(this)} >
         <h2>Login</h2>
         <input
           type="text"

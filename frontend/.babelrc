@@ -5,11 +5,11 @@
   ],
   "plugins": [
     "react-hot-loader/babel",
-    "transform-object-rest-spread",
     "react-css-modules",
     ["babel-plugin-relative-import", {
       "rootPathSuffix": "src"
-    }]
+    }],
+    "transform-object-rest-spread"
   ]
 }
 

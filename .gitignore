@@ -9,3 +9,4 @@ cache
 .nvmrc
 credentials.json
 static
+config.json
