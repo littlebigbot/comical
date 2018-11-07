@@ -42,9 +42,8 @@ app.use([
   '/about',
   '/archive',
   '/admin/*'
-  ], function(req, resp) {
-  console.log(INDEX_HTML_PATH);
-  resp.sendFile(INDEX_HTML_PATH);
+  ], function(req, res) {
+  res.render(INDEX_HTML_PATH, { title: 'Wayward Robot: the way of the universe', post: 'Hi' });
 });
 
 
