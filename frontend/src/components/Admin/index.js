@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import storage from 'store';
 import { Route, Switch, Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import './index.css';
@@ -14,12 +15,17 @@ class Admin extends Component {
   constructor(props) {
     super(props);
   }
+  logout() {
+    storage.remove('jwt');
+    this.props.history.push('/');
+  }
   render() {
     const { match } = this.props;
     return <div styleName="Admin">
       <ul>
         <li><Link to={`${match.path}/comics/new`}>New Comic</Link></li>
         <li><Link to={`${match.path}/comics`}>Comics</Link></li>
+        <li><a onClick={this.logout.bind(this)}>Logout</a></li>
       </ul>
 
       <PublicRoute path={`${match.path}/login`} component={Login} />

@@ -46,7 +46,7 @@ class Login extends Component {
         <button type="submit">Login</button>
       </form>
 
-      <form onSubmit={e => { e.preventDefault(); this.props.signUp(signUp) }} >
+      {/*<form onSubmit={e => { e.preventDefault(); this.props.signUp(signUp) }} >
         <h2>Sign Up</h2>
         <input
           type="text"
@@ -61,7 +61,7 @@ class Login extends Component {
           onChange={e => this.setState({signUp: { username: signUp.username, password: e.target.value}})}
         />
         <button type="submit">Sign Up</button>
-      </form>
+      </form>*/}
     </div>
   }
 }

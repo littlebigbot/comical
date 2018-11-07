@@ -9,27 +9,27 @@ const config = require('../config/config.json');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
-router.post('/signUp', (req, res) => {
-  models.User
-    .findAll({
-      where: { username: req.body.username }
-    })
-    .then((users) => {
-      if(users.length === 0) {
-        models.User
-          .create({
-            // @TODO async this
-            password: bcrypt.hashSync(req.body.password, salt),
-            username: req.body.username,
-            createdAt: new Date(),
-            updatedAt: new Date()
-          })
-          .then(() => res.sendStatus(200))
-          .catch(() => res.sendStatus(500));
-      }
-    })
-    .catch(() => res.sendStatus(500));
-})
+// router.post('/signUp', (req, res) => {
+//   models.User
+//     .findAll({
+//       where: { username: req.body.username }
+//     })
+//     .then((users) => {
+//       if(users.length === 0) {
+//         models.User
+//           .create({
+//             // @TODO async this
+//             password: bcrypt.hashSync(req.body.password, salt),
+//             username: req.body.username,
+//             createdAt: new Date(),
+//             updatedAt: new Date()
+//           })
+//           .then(() => res.sendStatus(200))
+//           .catch(() => res.sendStatus(500));
+//       }
+//     })
+//     .catch(() => res.sendStatus(500));
+// })
 
 router.post('/login', (req, res) => {
   return models.User

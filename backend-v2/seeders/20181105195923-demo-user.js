@@ -1,3 +1,4 @@
+const config = require('../config/config');
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
@@ -9,7 +10,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [{
         username: 'waywardrobot',
-        password: bcrypt.hashSync('password', salt),
+        password: bcrypt.hashSync(config.seededPassword, salt),
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
