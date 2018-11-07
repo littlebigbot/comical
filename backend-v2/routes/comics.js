@@ -1,8 +1,9 @@
 const express = require('express');
-const upload = require('../services/upload');
 const router = express.Router();
 const models = require('../models');
-const validateToken = require('../utils').validateToken;
+const thumbnail = require('../utility/thumbnail');
+const upload = require('../middleware/upload');
+const validateToken = require('../middleware/validate-token')
 
 // Sequelize stuff
 const Comic = models.Comic;
@@ -10,29 +11,37 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const sequelize = models.sequelize;
 
-router.post('/', upload, validateToken, (req, res) => {
+const defaultAttributes = ['title', 'post', 'titleText', 'image', 'thumbnail', 'slug', 'date'];
 
-  Comic
-    .create({
-      title: req.body.title,
-      post: req.body.post,
-      slug: req.body.slug,
-      image: req.file.location,
-      titleText: req.body.titleText,
-      date: new Date(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deleted: false
+router.post('/', upload, validateToken, (req, res) => {
+  console.log(req.file); 
+
+  thumbnail(req.file.location)
+    .then(thumb => {
+      Comic
+        .create({
+          title: req.body.title,
+          post: req.body.post,
+          slug: req.body.slug,
+          image: req.file.location,
+          thumbnail: thumb.Location,
+          titleText: req.body.titleText,
+          date: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          deleted: false
+        })
+        .then(comic => {
+          res.send(JSON.stringify({status: 200, error: null, response: comic}));
+        })
     })
-    .then(comic => {
-      res.send(JSON.stringify({status: 200, error: null, response: comic}));
-    })
+    .catch((err) => res.send({status: 500, error: err}))
 })
 
 router.get('/last', (req, res) => {
   Comic
     .findOne({
-      attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date'],
+      attributes: defaultAttributes,
       order: [ ['date', 'DESC'] ],
       where: { deleted: false }
     })
@@ -44,7 +53,7 @@ router.get('/last', (req, res) => {
 router.get('/:slug', (req, res) => {
   Comic
     .findOne({
-      attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date'],
+      attributes: defaultAttributes,
       where: { slug: req.params.slug }
     })
     .then(comic => {
@@ -55,30 +64,36 @@ router.get('/:slug', (req, res) => {
 router.post('/:slug', upload, validateToken, (req, res, next) => {
 
   const fields = ['title','post','slug','titleText','date'];
-  let updateObject = {updatedAt: new Date()}
-
-  if(req.file) {
-    updateObject.image = req.file.location
-  }
-  updateObject = fields.reduce((r, field) => {
+  const updateObject = fields.reduce((r, field) => {
     if(req.body[field]) {
       r[field] = req.body[field];
     }
     return r;
-  }, updateObject)
+  }, {updatedAt: new Date()})
 
-  console.log(updateObject);
+  if(req.file) {
+    thumbnail(req.file.location)
+      .then(thumb => {
+        updateObject.image = req.file.location
+        updateObject.thumbnail = thumb.Location
+        updateDb();
+      })
+  } else {
+    updateDb()
+  }
 
-  Comic
-    .update(
-      updateObject,
-      { where: {slug: req.params.slug} }
-    )
-    .then(() => {
-      res.send(JSON.stringify({status: 200, error: null, response: 'OK'}));
-      // res.sendStatus(200);
-    })
-    .catch(next)
+  const updateDb = () => {
+    Comic
+      .update(
+        updateObject,
+        { where: {slug: req.params.slug} }
+      )
+      .then(() => {
+        res.send(JSON.stringify({status: 200, error: null, response: 'OK'}));
+        // res.sendStatus(200);
+      })
+      .catch(next)
+  }
 })
 
 router.delete('/:slug', validateToken, (req, res, next) => {
@@ -177,7 +192,7 @@ router.get('/:slug/navigation', (req, res) => {
 router.get('/', (req, res) => {
   Comic
     .findAll({
-      attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date'],
+      attributes: defaultAttributes,
       where: { deleted: false }
     })
     .then(comics => {

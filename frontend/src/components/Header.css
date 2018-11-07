@@ -48,11 +48,11 @@ $header-size: 150px;
     a {
       color: #fff;
       border-bottom: 5px solid transparent;
+      padding-bottom: 5px;
+      display: block;
     }
     :global .active {
       border-bottom: 5px solid #fff;
-      padding-bottom: 5px;
-      display: block;
     }
 
     span {

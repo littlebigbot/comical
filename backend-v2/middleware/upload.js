@@ -9,7 +9,8 @@ const path = require('path');
 aws.config.update({
   secretAccessKey: config.awsSecretAccessKey,
   accessKeyId: config.awsAccessKeyId,
-  region: 'us-east-2'
+  region: 'us-east-2',
+  limits: { fileSize: 1000000, files: config.MAX_FILE_COUNT || 6 }
 });
 
 const s3 = new aws.S3();

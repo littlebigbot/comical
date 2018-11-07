@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     post: DataTypes.TEXT,
     slug: DataTypes.STRING,
     image: DataTypes.STRING,
+    thumbnail: DataTypes.STRING,
     titleText: DataTypes.TEXT,
     date: DataTypes.DATE,
     deleted: DataTypes.BOOLEAN

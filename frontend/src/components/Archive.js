@@ -19,7 +19,10 @@ class Archive extends Component {
   }
   renderComic(comic, i) {
     return <li key={i}>
-      <Link to={`/comic/${comic.slug}`}>{comic.title}</Link>
+      <Link to={`/comic/${comic.slug}`}>
+        <h3>{comic.title}</h3>
+        <img src={comic.thumbnail} alt={comic.title} />
+      </Link>
     </li>
   }
   render() {

@@ -20,7 +20,7 @@ class Comics extends Component {
   }
   renderComic(comic, i) {
     return <li key={i}>
-      {comic.title}
+      <h3>{comic.title}</h3>
       <Link to={`/comic/${comic.slug}`}>View</Link>
       <Link to={`/admin/comics/${comic.slug}`}>Edit</Link>
       <a onClick={this.delete(comic.slug)}>Delete</a>
