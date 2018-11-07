@@ -11,8 +11,6 @@ import Archive from './Archive';
 import Admin from './Admin';
 import Err from './Err';
 import Header from './Header';
-import PrivateRoute from './PrivateRoute';
-console.log(PrivateRoute)
 import styles from './Root.css';
 
 class Root extends Component {
@@ -28,7 +26,7 @@ class Root extends Component {
                 <Route exact path={['/comic/:slug', '/']} component={Comic} />
                 <Route exact path="/archive" component={Archive} />
                 <Route exact path="/about" component={About} />
-                <PrivateRoute path="/admin" component={Admin} />
+                <Route path="/admin" component={Admin} />
                 <Route component={Err} />
               </Switch>
             </div>

@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config/config');
 
 module.exports = (req, res, next) => {
   const authorizationHeaader = req.headers.authorization;
@@ -12,7 +11,7 @@ module.exports = (req, res, next) => {
     };
     try {
       // verify makes sure that the token hasn't expired and has been issued by us
-      result = jwt.verify(token, config[process.env.NODE_ENV].secret, options);
+      result = jwt.verify(token, process.env.SECRET, options);
 
       // Let's pass back the decoded token to the request object
       req.decoded = result;

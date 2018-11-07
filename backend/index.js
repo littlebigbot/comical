@@ -1,97 +1,76 @@
-#!/usr/bin/env nodejs
+require('dotenv').config()
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mysql= require('mysql');
-var http = require('http');
-var cors = require('cors')
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors');
+const path = require('path')
+const authRoutes = require('./routes/auth');
+const comicsRoutes = require('./routes/comics');
+const Comic = require('./models').Comic;
 
-var credentials = require('./credentials.json');
+const app = express()
 
-var index = require('./routes/index');
-var comics = require('./routes/comics');
-var auth = require('./routes/auth');
+const STATIC_PATH = path.resolve(__dirname, '../static');
+const INDEX_HTML_PATH = path.resolve(STATIC_PATH, 'index.html');
 
-var app = express();
+if(process.env.NODE_ENV === 'development') {
+  app.use(cors());
+}
 
-app.use(cors())
-
-// view engine setup
-app.set('views', path.resolve(__dirname, '../static'));
+app.set('views', STATIC_PATH);
 app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+// app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 
+app.use(express.static(STATIC_PATH));
+app.use(bodyParser.json())
 
-app.use(express.static(path.resolve(__dirname, '../static')));
-
-console.log(path.resolve(__dirname, '../../comics'));
-app.use('/comics', express.static(path.resolve(__dirname, '../../comics')))
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-//Database connection
-app.use(function(req, res, next){
-  global.connection = mysql.createConnection({
-    user     : credentials.username,
-    password : credentials.password,
-    host     : 'localhost',
-    database : 'comical',
-    multipleStatements: true
-  });
-  connection.connect();
-  next();
+app.options('/*', function(req, res, next){
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.sendStatus(200);
 });
 
-// app.use('/', index);
-app.use('/api/v1/comics', comics);
-app.use('/api/v1/auth', auth);
+// Routes
+app.use('/api/v2/auth', authRoutes)
+app.use('/api/v2/comics', comicsRoutes)
 
-// app.use('/comics/*.png', function(req, resp) {
-//   console.log(req);
-//   console.log(resp);
-// });
 
-// @TODO: use a better way
+// @TODO: find a better way
 app.use([
-  '/',
-  '/comic/:slug',
   '/about',
   '/archive',
   '/admin/*'
   ], function(req, resp) {
-  console.log(path.resolve(__dirname + '../../static/index.html'));
-  resp.sendFile(path.resolve(__dirname + '../../static/index.html'));
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  console.log(INDEX_HTML_PATH);
+  resp.sendFile(INDEX_HTML_PATH);
 });
 
 
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.get('/comic/:slug', function(req, res) {
+  Comic
+    .findOne({
+      attributes: [ 'title', 'post', 'titleText', 'image', 'date' ],
+      where: { slug: req.params.slug }
+    })
+    .then(comic => {
+      res.render(INDEX_HTML_PATH, { title: comic.title, post: comic.post, titleText: comic.titleText, image: comic.image, date: comic.date });
+    })
 });
 
-module.exports = app;
-var server = http.createServer(app);
-server.listen(1337);
+// Handle 404
+app.use(function(req, res) {
+  res.status(400);
+  res.render(INDEX_HTML_PATH);
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+  res.status(500);
+  res.render(INDEX_HTML_PATH);
+});
+
+app.listen(1337, () => {
+  console.log('Server running on http://localhost:1337')
+})

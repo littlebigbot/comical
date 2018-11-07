@@ -1,24 +1,16 @@
 var aws = require('aws-sdk')
-var config = require('../config/config')
-
-// function defaultContentType(req, file, cb) {
-//   setImmediate(function () {
-//     var ct = file.contentType || file.mimetype || 'application/octet-stream'
-//     cb(null, ct);
-//   });
-// }
 
 module.exports = function (fileName, file, contentType) {
   aws.config.update({
-    secretAccessKey: config.awsSecretAccessKey,
-    accessKeyId: config.awsAccessKeyId,
-    region: 'us-east-2',
-    limits: { fileSize: 1000000, files: config.MAX_FILE_COUNT || 6 }
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: process.env.AWS_REGION,
+    limits: { fileSize: 1000000, files: 1 }
   })
 
   var s3bucket = new aws.S3({
     params: {
-      Bucket: 'waywardrobot',
+      Bucket: process.env.AWS_BUCKET,
       ACL: 'public-read',
       ContentType: contentType || file.contentType
     }

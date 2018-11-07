@@ -1,4 +1,5 @@
-const config = require('../config/config');
+require('dotenv').config();
+
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
@@ -9,8 +10,8 @@ const salt = bcrypt.genSaltSync(saltRounds);
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [{
-        username: 'waywardrobot',
-        password: bcrypt.hashSync(config.seededPassword, salt),
+        username: process.env.COMICAL_USERNAME,
+        password: bcrypt.hashSync(process.env.COMICAL_PASSWORD, salt),
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});

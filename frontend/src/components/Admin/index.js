@@ -9,7 +9,8 @@ import NewComic from './NewComic';
 import UpdateComic from './UpdateComic'
 import Comics from './Comics'
 import Login from './Login';
-import PublicRoute from '~/components/PublicRoute';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 
 class Admin extends Component {
   constructor(props) {
@@ -28,11 +29,11 @@ class Admin extends Component {
         <li><a onClick={this.logout.bind(this)}>Logout</a></li>
       </ul>
 
-      <PublicRoute path={`${match.path}/login`} component={Login} />
       <Switch>
-        <Route path={`${match.path}/comics/new`} component={NewComic} />
-        <Route exact path={`${match.path}/comics`} component={Comics} />
-        <Route path={`${match.path}/comics/:slug`} component={UpdateComic} />
+        <PublicRoute path={`${match.path}/login`} component={Login} />
+        <PrivateRoute path={`${match.path}/comics/new`} component={NewComic} />
+        <PrivateRoute exact path={`${match.path}/comics`} component={Comics} />
+        <PrivateRoute path={`${match.path}/comics/:slug`} component={UpdateComic} />
         <Redirect from="/" to={`${match.path}/comics`} />
       </Switch>
     </div>
