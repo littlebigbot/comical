@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getComics } from '~/actions';
+import { getComics, deleteComic } from '~/actions';
 import './Comics.css';
 
 class Comics extends Component {
@@ -13,12 +13,17 @@ class Comics extends Component {
     if(!comics) {
       getComics();
     }
+    this.delete.bind(this);
+  }
+  delete(slug) {
+    return () => this.props.deleteComic(slug).then(this.props.getComics)
   }
   renderComic(comic, i) {
     return <li key={i}>
       {comic.title}
       <Link to={`/comic/${comic.slug}`}>View</Link>
       <Link to={`/admin/comics/${comic.slug}`}>Edit</Link>
+      <a onClick={this.delete(comic.slug)}>Delete</a>
 
     </li>
   }
@@ -47,7 +52,8 @@ Comics = connect(state => {
     comics: state.comics.data ? state.comics.data.response : null
   }
 }, {
-  getComics
+  getComics,
+  deleteComic
 })(Comics)
 
 export default Comics

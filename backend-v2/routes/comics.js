@@ -81,7 +81,7 @@ router.post('/:slug', upload, validateToken, (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/:slug', validateToken, (req, res) => {
+router.delete('/:slug', validateToken, (req, res, next) => {
   Comic
     .update(
       {deleted: true},
@@ -177,7 +177,8 @@ router.get('/:slug/navigation', (req, res) => {
 router.get('/', (req, res) => {
   Comic
     .findAll({
-      attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date']
+      attributes: ['title', 'post', 'titleText', 'image', 'slug', 'date'],
+      where: { deleted: false }
     })
     .then(comics => {
       res.send(JSON.stringify({status: 200, error: null, response: comics}));

@@ -118,3 +118,11 @@ export const apiUpdateComic = (fields, slug) => {
 
   return api(`/comics/${slug}`, config);
 }
+
+
+export const apiDeleteComic = slug => {
+  return api(`/comics/${slug}`, {
+    method: 'DELETE'
+  }) 
+
+}

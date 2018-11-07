@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import './index.css';
 import NewComic from './NewComic';
@@ -27,6 +27,7 @@ class Admin extends Component {
         <Route path={`${match.path}/comics/new`} component={NewComic} />
         <Route exact path={`${match.path}/comics`} component={Comics} />
         <Route path={`${match.path}/comics/:slug`} component={UpdateComic} />
+        <Redirect from="/" to={`${match.path}/comics`} />
       </Switch>
     </div>
   }
