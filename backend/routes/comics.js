@@ -1,89 +1,211 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const models = require('../models');
+const thumbnail = require('../utility/thumbnail');
+const upload = require('../middleware/upload');
+const validateToken = require('../middleware/validate-token')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  connection.query('SELECT * FROM comics', function (error, results, fields) {
-    if(error){
-      res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
-      //If there is error, we send the error in the error section with 500 status
-    } else {
-      res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
-      //If there is no error, all is good and response is 200OK.
+// Sequelize stuff
+const Comic = models.Comic;
+const Op = models.Sequelize.Op;
+const sequelize = models.sequelize;
+
+const defaultAttributes = [
+  'title',
+  'post',
+  'titleText',
+  'image',
+  'thumbnail',
+  'slug',
+  'date'
+];
+
+router.post('/', upload, validateToken, (req, res) => {
+  console.log(req.file); 
+
+  thumbnail(req.file.location)
+    .then(thumb => {
+      Comic
+        .create({
+          title: req.body.title,
+          post: req.body.post,
+          slug: req.body.slug,
+          image: req.file.location,
+          thumbnail: thumb.Location,
+          titleText: req.body.titleText,
+          date: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          deleted: false
+        })
+        .then(comic => {
+          res.send(JSON.stringify({status: 200, error: null, response: comic}));
+        })
+    })
+    .catch((err) => res.send({status: 500, error: err}))
+})
+
+router.get('/last', (req, res) => {
+  Comic
+    .findOne({
+      attributes: defaultAttributes,
+      order: [ ['date', 'DESC'] ],
+      where: { deleted: false }
+    })
+    .then(comic => {
+      res.send(JSON.stringify({status: 200, error: null, response: comic}));
+    })
+})
+
+router.get('/:slug', (req, res) => {
+  Comic
+    .findOne({
+      attributes: defaultAttributes,
+      where: { slug: req.params.slug }
+    })
+    .then(comic => {
+      res.send(JSON.stringify({status: 200, error: null, response: comic}));
+    })
+})
+
+router.post('/:slug', upload, validateToken, (req, res, next) => {
+
+  const fields = ['title','post','slug','titleText','date'];
+  const updateObject = fields.reduce((r, field) => {
+    if(req.body[field]) {
+      r[field] = req.body[field];
     }
-  });
-});
+    return r;
+  }, {updatedAt: new Date()})
 
-router.get('/last', function(req, res, next) {
-  connection.query('SELECT * FROM comics ORDER BY date DESC LIMIT 1;', function (error, results, fields) {
-    if(error){
-      res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
-      //If there is error, we send the error in the error section with 500 status
-    } else {
-      res.send(JSON.stringify({"status": 200, "error": null, "response": results[0]}));
-      //If there is no error, all is good and response is 200OK.
-    }
-  });
-});
-
-router.get('/:slug', function(req, res, next) {
-  connection.query('SELECT * FROM comics WHERE slug = "' + req.params.slug + '" LIMIT 1', function (error, results, fields) {
-    if(error){
-      res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
-      //If there is error, we send the error in the error section with 500 status
-    } else {
-      res.send(JSON.stringify({"status": 200, "error": null, "response": results[0]}));
-      //If there is no error, all is good and response is 200OK.
-    }
-  });
-});
-
-router.get('/:slug/navigation', function(req, res, next) {
-  console.log(req.params.slug);
-
-  var currentQuery = 'SELECT date FROM comics WHERE slug ="'+req.params.slug+'"';
-  var firstQuery = 'SELECT slug FROM comics ORDER BY date ASC LIMIT 1;';
-  var previousQuery = 'SELECT slug FROM comics WHERE date < ('+currentQuery+') ORDER BY date DESC LIMIT 1;';
-  var nextQuery = 'SELECT slug FROM comics WHERE date > ('+currentQuery+') ORDER BY date ASC LIMIT 1;';
-  var lastQuery = 'SELECT slug FROM comics ORDER BY date DESC LIMIT 1;';
-  var randomQuery = 'SELECT slug FROM comics WHERE slug <> "'+req.params.slug+'" ORDER BY RAND() LIMIT 1;';
-
-  console.log([previousQuery, nextQuery, randomQuery].join(' '));
-
-  var responseObject = {
-    firstSlug: null,
-    previousSlug: null,
-    currentSlug: req.params.slug,
-    nextSlug: null,
-    lastSlug: null,
-    randomSlug: null
+  if(req.file) {
+    thumbnail(req.file.location)
+      .then(thumb => {
+        updateObject.image = req.file.location
+        updateObject.thumbnail = thumb.Location
+        updateDb();
+      })
+  } else {
+    updateDb()
   }
 
-  connection.query([firstQuery, previousQuery, nextQuery, lastQuery, randomQuery].join(' '), ['previousSlug', 'nextSlug', 'randomSlug'])
-    .on('result', function(row, index) {
-      switch(index) {
-        case 0:
-          responseObject.firstSlug = row.slug;
-          break;
-        case 1:
-          responseObject.previousSlug = row.slug;
-          break;
-        case 2:
-          responseObject.nextSlug = row.slug;
-          break;
-        case 3:
-          responseObject.lastSlug = row.slug;
-          break;
-        case 4:
-          responseObject.randomSlug = row.slug;
-          break;
-        default:
-          break;
-      }
+  const updateDb = () => {
+    Comic
+      .update(
+        updateObject,
+        { where: {slug: req.params.slug} }
+      )
+      .then(() => {
+        res.send(JSON.stringify({status: 200, error: null, response: 'OK'}));
+        // res.sendStatus(200);
+      })
+      .catch(next)
+  }
+})
+
+router.delete('/:slug', validateToken, (req, res, next) => {
+  Comic
+    .update(
+      {deleted: true},
+      {where: {slug: req.params.slug}}
+    )
+    .then(rowsUpdated => {
+      res.json(rowsUpdated);
     })
-    .on('end', function() {
-      res.send(JSON.stringify({"status": 200, "error": null, "response": responseObject}));
-    });
-});
+    .catch(next) 
+})
+
+router.get('/:slug/navigation', (req, res) => {
+  Comic
+    .findOne({
+      attributes: ['date'],
+      where: { slug: req.params.slug }
+    })
+    .then(comic => {
+      const first = models.Comic
+        .findOne({
+          attributes: ['slug'],
+          order: [ ['date', 'ASC'] ],
+          where: { deleted: false }
+        });
+      const previous = models.Comic
+        .findOne({
+          attributes: ['slug'],
+          where: { date: { [Op.lt]: comic.date }, deleted: false },
+          order: [ ['date', 'DESC'] ]
+        });
+      const next = models.Comic
+        .findOne({
+          attributes: ['slug'],
+          where: { date: { [Op.gt]: comic.date }, deleted: false },
+          order: [ ['date', 'ASC'] ]
+        });
+      const last = models.Comic
+        .findOne({
+          attributes: ['slug'],
+          order: [ ['date', 'DESC'] ],
+          where: { deleted: false }
+        });
+      const random = models.Comic
+        .findOne({
+          attributes: ['slug'],
+          where: { slug: { [Op.ne]: req.params.slug }, deleted: false },
+          order: sequelize.random()
+        });
+
+      let responseObject = {
+        firstSlug: null,
+        previousSlug: null,
+        currentSlug: req.params.slug,
+        nextSlug: null,
+        lastSlug: null,
+        randomSlug: null
+      }
+
+      Promise
+        .all([first, previous, next, last, random])
+        .then(responses => {
+          var response = responses.map((r, i) => {
+            switch(i) {
+              case 0:
+                responseObject.firstSlug = r && r.slug;
+                break;
+              case 1:
+                responseObject.previousSlug = r && r.slug;
+                break;
+              case 2:
+                responseObject.nextSlug = r && r.slug;
+                break;
+              case 3:
+                responseObject.lastSlug = r && r.slug;
+                break;
+              case 4:
+                responseObject.randomSlug = r && r.slug;
+                break;
+              default:
+                break;
+            }
+          });
+          res.send(JSON.stringify({status: 200, error: null, response: responseObject}));
+        })
+        .catch(err => {
+          res.send(JSON.stringify({status: 500, error: err, response: null}));
+        })
+
+    })
+})
+
+
+router.get('/', (req, res) => {
+  Comic
+    .findAll({
+      attributes: defaultAttributes,
+      where: { deleted: false }
+    })
+    .then(comics => {
+      res.send(JSON.stringify({status: 200, error: null, response: comics}));
+    })
+})
+
 
 module.exports = router;

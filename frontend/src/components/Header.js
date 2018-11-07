@@ -10,7 +10,6 @@ class Header extends Component {
     super(props);
   }
   render() {
-    console.log(NavLink)
     return <header styleName="Header">
       <Link to="/">
         <h1><small>The</small>Wayward Robot</h1>

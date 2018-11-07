@@ -8,9 +8,9 @@ import { Route, Switch } from 'react-router';
 import Comic from './Comic';
 import About from './About';
 import Archive from './Archive';
-import Error from './Error';
+import Admin from './Admin';
+import Err from './Err';
 import Header from './Header';
-
 import styles from './Root.css';
 
 class Root extends Component {
@@ -26,8 +26,8 @@ class Root extends Component {
                 <Route exact path={['/comic/:slug', '/']} component={Comic} />
                 <Route exact path="/archive" component={Archive} />
                 <Route exact path="/about" component={About} />
-                <Route exact path="/about" component={About} />
-                <Route component={Error} />
+                <Route path="/admin" component={Admin} />
+                <Route component={Err} />
               </Switch>
             </div>
           </div>

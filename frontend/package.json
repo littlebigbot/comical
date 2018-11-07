@@ -20,6 +20,7 @@
     "connected-react-router": "^4.3.0",
     "fs": "0.0.1-security",
     "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
     "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
@@ -27,6 +28,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.3.0",
+    "react-lazyload": "^2.3.0",
     "react-modal": "^3.6.1",
     "react-moment": "^0.8.3",
     "react-redux": "^5.0.7",
@@ -39,6 +41,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
+    "store": "^2.0.12",
     "webpack-md5-hash": "^0.0.6"
   },
   "devDependencies": {

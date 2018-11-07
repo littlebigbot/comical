@@ -4,21 +4,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './Error.css';
+import './Err.css';
 
-class Error extends Component {
+class Err extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return <div styleName="Error">Error!</div>
+    return <div styleName="Err"></div>
   }
 }
 
-Error.propTypes = {
+Err.propTypes = {
 }
 
-Error = connect(state => state, {
-})(Error)
+Err = connect(state => state, {
+})(Err)
 
-export default Error
+export default Err

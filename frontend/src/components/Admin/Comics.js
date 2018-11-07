@@ -1,14 +1,11 @@
-// This is just a blank template for faster
-// creation of new components
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getComics } from '~/actions';
-import './Archive.css';
+import { getComics, deleteComic } from '~/actions';
+import './Comics.css';
 
-class Archive extends Component {
+class Comics extends Component {
   constructor(props) {
     super(props);
 
@@ -16,25 +13,30 @@ class Archive extends Component {
     if(!comics) {
       getComics();
     }
+    this.delete.bind(this);
+  }
+  delete(slug) {
+    return () => this.props.deleteComic(slug).then(this.props.getComics)
   }
   renderComic(comic, i) {
     return <li key={i}>
-      <Link to={`/comic/${comic.slug}`}>
-        <h3>{comic.title}</h3>
-        <img src={comic.thumbnail} alt={comic.title} />
-      </Link>
+      <h3>{comic.title}</h3>
+      <Link to={`/comic/${comic.slug}`}>View</Link>
+      <Link to={`/admin/comics/${comic.slug}`}>Edit</Link>
+      <a onClick={this.delete(comic.slug)}>Delete</a>
+
     </li>
   }
   render() {
     const { comics } = this.props;
     if(!comics) {
-      return <div styleName="Archive">
-        <h2>Archive</h2>
+      return <div styleName="Comics">
+        <h2>Comics</h2>
         <p>Loading...</p>
       </div>;
     }
-    return <div styleName="Archive">
-      <h2>Archive</h2>
+    return <div styleName="Comics">
+      <h2>Comics</h2>
       <ul>
         { comics.map(this.renderComic.bind(this)) }  
       </ul>
@@ -42,15 +44,16 @@ class Archive extends Component {
   }
 }
 
-Archive.propTypes = {
+Comics.propTypes = {
 }
 
-Archive = connect(state => {
+Comics = connect(state => {
   return {
     comics: state.comics.data ? state.comics.data.response : null
   }
 }, {
-  getComics
-})(Archive)
+  getComics,
+  deleteComic
+})(Comics)
 
-export default Archive
+export default Comics

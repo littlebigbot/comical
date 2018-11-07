@@ -5,7 +5,7 @@ import _ from 'lodash';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin'
+// import CopyWebpackPlugin from 'copy-webpack-plugin'
 
 const ROOT_PATH = path.resolve(__dirname);
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
@@ -51,10 +51,10 @@ export default {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin([BUILD_PATH]),
-    new CopyWebpackPlugin([
-      { from: path.resolve(SRC_PATH, 'error.html'), to: BUILD_PATH }
-    ])
+    new CleanWebpackPlugin([BUILD_PATH])
+    // new CopyWebpackPlugin([
+    //   { from: path.resolve(SRC_PATH, 'error.html'), to: BUILD_PATH }
+    // ])
   ],
   devtool: 'eval',
   module: {
