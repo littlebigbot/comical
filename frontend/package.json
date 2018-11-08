@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "release": "webpack --progress --config webpack.config.prod.babel.js",
+    "test": "webpack --progress --watch --config webpack.config.prod.babel.js",
     "start": "webpack-dev-server --hotOnly --progress --config webpack.config.dev.babel.js"
   },
   "author": "John Briggs",

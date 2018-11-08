@@ -8,7 +8,7 @@ module.exports = function (fileLocation) {
       if(error) {
         return reject(error);
       }
-      const thumbnail = sharp(body).resize(250).toFormat('jpeg')
+      const thumbnail = sharp(body).resize(600).toFormat('jpeg')
       const originalFilename = fileLocation.split('/').slice(-1)[0];
       const filename = originalFilename.split('.')[0] + '-thumbnail.jpg'
 
