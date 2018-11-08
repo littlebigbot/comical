@@ -32,7 +32,8 @@ app.get('/comic/:slug', function(req, res) {
         'post',
         'image',
         'date',
-        'thumbnail'
+        'thumbnail',
+        'titleText'
       ],
       where: { slug: req.params.slug }
     })
@@ -41,6 +42,7 @@ app.get('/comic/:slug', function(req, res) {
         subtitle: comic.title,
         description: comic.post,
         image: comic.image,
+        titleText: comic.titleText,
         thumbnail: comic.thumbnail,
         date: comic.date,
         url: URL + req.path
@@ -80,6 +82,7 @@ var defaultMetaObject = req => ({
   url: URL + req.path,
   image: '',
   thumbnail: '',
+  titleText: '',
   date: new Date('November 01, 2018 03:24:00')
 })
 
