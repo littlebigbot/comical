@@ -3,11 +3,30 @@
 .Post {
   padding: 10px;
   background: #ffffff;
+  margin-bottom: 50px;
 
   h2 {
-    margin-top:0;
-    margin-bottom: 10px;
+    margin: 0;
+  }
+
+  header {
+    margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  time {
+    font-style: italic;
+  }
+}
+
+
+.content {
+  &,
+  * {
+    font-family: $san-serif;
   }
 }

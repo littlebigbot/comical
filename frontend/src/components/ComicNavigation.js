@@ -7,13 +7,6 @@ import './ComicNavigation.css';
 import { isNull } from 'lodash';
 
 class ComicNavigation extends Component {
-  constructor(props) {
-    super(props);
-    this.openShareModal.bind(this)
-  }
-  openShareModal() {
-
-  }
   render() {
     const { firstSlug, previousSlug, nextSlug, lastSlug, randomSlug, currentSlug } = this.props;
     return <nav styleName="ComicNavigation">
@@ -31,17 +24,17 @@ class ComicNavigation extends Component {
           </Link>
         </li>
         <li>
-          <Link title="Random" to={`/comic/${randomSlug}`}>
+          <Link title="Random" disabled={isNull(randomSlug)} to={`/comic/${randomSlug}`}>
             <FontAwesomeIcon size="2x" icon={Icons.faRandom} />
             <span>Random</span>
           </Link>
         </li>
-        <li>
-          <a title="Share" onClick={this.openShareModal.bind(this)}>
+        {/*<li>
+          <a title="Share" onClick={this.openShareModal}>
             <FontAwesomeIcon size="2x" icon={Icons.faShareAlt} />
             <span>Share</span>
           </a>
-        </li>
+        </li>*/}
         <li>
           <Link title="Next" disabled={isNull(nextSlug)} to={`/comic/${nextSlug}`}>
             <FontAwesomeIcon size="2x" icon={Icons.faStepForward} />

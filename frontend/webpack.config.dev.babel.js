@@ -45,7 +45,7 @@ export default {
       filename: 'index.html',
       alwaysWriteToDisk: true,
       title: 'Wayward Robot',
-      // favicon: 'src/assets/favicon.png'
+      favicon: 'src/assets/favicon.ico'
     }),
     new HtmlWebpackHarddiskPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -69,7 +69,7 @@ export default {
         ]
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*$|$)/,
+        test: /\.(png|jpg|jpeg|ico|gif|svg|woff|woff2|ttf|eot)(\?.*$|$)/,
         use: [
           {
             loader: 'file-loader',

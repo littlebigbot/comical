@@ -38,18 +38,17 @@ class Comic extends Component {
     const { comic, navigation, loading } = this.props;
     if(comic && navigation && !loading) {
       return <div styleName="Comic">
-        <h2>
-          {comic.title}
-          <small>(<Moment format="YYYY/MM/DD">{comic.date}</Moment>)</small>
-        </h2>
+        <section styleName="comic-wrap">
+          <h2>{comic.title}</h2>
+          <Moment format="MMMM Do, YYYY">{comic.date}</Moment>
 
-        <ComicNavigation {...navigation} />
-        
-        <div styleName="comic-wrap">
+          {/*<ComicNavigation {...navigation} />*/}
+          
           <Link to={navigation.nextSlug ? `/comic/${navigation.nextSlug}` : '/'} >
             <img src={comic.image} alt={comic.title_text} title={comic.title_text} />
           </Link>
-        </div>
+
+        </section>
 
         <ComicNavigation {...navigation} />
 

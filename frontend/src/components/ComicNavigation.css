@@ -9,6 +9,7 @@
     &[disabled] {
       color: $secondary-text-color;
       pointer-events: none;
+      cursor: not-allowed;
     }
     span {
       @extend %screen-reader-text;

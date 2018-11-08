@@ -47,7 +47,7 @@ export default {
       template: path.resolve(SRC_PATH, 'index.html'),
       filename: 'index.html',
       title: 'Wayward Robot',
-      // favicon: 'src/assets/favicon.png'
+      favicon: 'src/assets/favicon.ico'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -74,7 +74,7 @@ export default {
         ]
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*$|$)/,
+        test: /\.(png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)(\?.*$|$)/,
         use: [
           {
             loader: 'file-loader',

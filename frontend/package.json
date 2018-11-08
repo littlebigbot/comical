@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/free-brands-svg-icons": "^5.5.0",
     "@fortawesome/pro-light-svg-icons": "^5.5.0",
     "@fortawesome/pro-regular-svg-icons": "^5.5.0",
     "@fortawesome/pro-solid-svg-icons": "^5.5.0",
@@ -23,6 +24,7 @@
     "history": "^4.7.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
+    "marked": "^0.5.1",
     "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.1",
@@ -40,7 +42,6 @@
     "redux-act": "^1.7.4",
     "redux-act-async": "^1.7.0",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
     "store": "^2.0.12",
     "webpack-md5-hash": "^0.0.6"

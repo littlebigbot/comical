@@ -70,6 +70,19 @@ router.get('/:slug', (req, res) => {
 
 router.post('/:slug', upload, validateToken, (req, res, next) => {
 
+  // const updateDb = () => {
+  //   Comic
+  //     .update(
+  //       updateObject,
+  //       { where: {slug: req.params.slug} }
+  //     )
+  //     .then(() => {
+  //       res.send(JSON.stringify({status: 200, error: null, response: 'OK'}));
+  //       // res.sendStatus(200);
+  //     })
+  //     .catch(next)
+  // }
+
   const fields = ['title','post','slug','titleText','date'];
   const updateObject = fields.reduce((r, field) => {
     if(req.body[field]) {
@@ -87,19 +100,6 @@ router.post('/:slug', upload, validateToken, (req, res, next) => {
       })
   } else {
     updateDb()
-  }
-
-  const updateDb = () => {
-    Comic
-      .update(
-        updateObject,
-        { where: {slug: req.params.slug} }
-      )
-      .then(() => {
-        res.send(JSON.stringify({status: 200, error: null, response: 'OK'}));
-        // res.sendStatus(200);
-      })
-      .catch(next)
   }
 })
 

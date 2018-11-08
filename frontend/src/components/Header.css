@@ -3,23 +3,16 @@
 
 $header-size: 150px;
 
-:global body {
+/*:global body {
   padding-top: $header-size;
-}
+}*/
 
 .Header {
-  height: $header-size;
-  background: $divider-color;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  padding: 10px;
-  align-items: center;
+  padding: 40px 0 20px;
+  text-align: center;
 
   > a {
-    color: $accent-color
+    color: $text-primary-color;
   }
 
 /*  h1 {
@@ -32,13 +25,11 @@ $header-size: 150px;
   }*/
 
   nav {
-    position: absolute;
-    right: 10px;
-    bottom: 0px;
-    text-align: right;
+    margin: 20px auto;
 
     ul {
       display: flex;
+      justify-content: center;
     }
 
     li {
@@ -46,17 +37,11 @@ $header-size: 150px;
     }
 
     a {
-      color: #fff;
-      border-bottom: 5px solid transparent;
-      padding-bottom: 5px;
-      display: block;
-    }
-    :global .active {
-      border-bottom: 5px solid #fff;
-    }
-
-    span {
-      @extend %screen-reader-text;
+      font-family: $(serif);
+      &:hover {
+        text-decoration: underline;
+        color: $text-primary-color;
+      } 
     }
   }
 
@@ -64,11 +49,13 @@ $header-size: 150px;
     position: relative;
     font-size: 3em;
     margin: 0;
+    margin: 0;
+    break-after: always;
 
     small {
       position: absolute;
-      bottom: 100%;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 30%;
     }
   }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import * as Icons from '@fortawesome/pro-light-svg-icons';
 import './Header.css';
 
 class Header extends Component {
@@ -12,7 +10,7 @@ class Header extends Component {
   render() {
     return <header styleName="Header">
       <Link to="/">
-        <h1><small>The</small>Wayward Robot</h1>
+        <h1><small>The</small>Wayward<br/>Robot</h1>
       </Link>
 
       <nav>
@@ -20,19 +18,16 @@ class Header extends Component {
           <li>
             <NavLink title="Home" exact to="/">
               <span>Home</span>
-              <FontAwesomeIcon size="2x" icon={Icons.faHome} />
             </NavLink>
           </li>
           <li>
             <NavLink title="About" to="/about">
               <span>About</span>
-              <FontAwesomeIcon size="2x" icon={Icons.faQuestion} />
             </NavLink>
           </li>
           <li>
             <NavLink title="Archive" to="/archive">
               <span>Archive</span>
-              <FontAwesomeIcon size="2x" icon={Icons.faArchive} />
             </NavLink>
           </li>
         </ul>
