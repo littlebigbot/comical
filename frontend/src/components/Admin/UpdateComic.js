@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ComicForm from './ComicForm';
 import { updateComic, getComic } from '~/actions';
 import './UpdateComic.css';
 
@@ -10,120 +11,30 @@ class UpdateComic extends Component {
 
     const { getComic, match } = this.props;
 
-    getComic(match.params.slug || 'last')
-      .then((data) => {
-        const { comic } = this.props;
-        this.setState(comic)
-      });
-      
-    this.state = {
-      title: '',
-      slug: '',
-      titleText: '',
-      post: '',
-      image: null,
-      tags: '',
-      script: ''
-    }
+    getComic(match.params.slug)
   }
   componentDidUpdate(prevProps) {
     if(prevProps.match.params.slug !== this.props.match.params.slug) {
-      const { getComic, getComicNavigation, match } = this.props;
+      const { getComic, match } = this.props;
 
-      this.setState({
-        title: '',
-        slug: '',
-        titleText: '',
-        post: '',
-        image: null,
-        tags: '',
-        script: ''
-      });
-
-      getComic(match.params.slug || 'last')
-        .then(() => {
-          const { comic } = this.props;
-          this.setState(comic)
-        });
+      getComic(match.params.slug)
     }
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    
-    this.props.updateComic(this.state, this.props.comic.slug)
+  handleSubmit(state) {
+    console.log('BAHAHAHAHAHAHAHA')
+    this.props.updateComic(state, this.props.comic.slug)
       .then(() => {
-        this.props.history.push(`/admin/comics/${this.state.slug}`);
+        this.props.history.push(`/admin/comics/${state.slug}`);
       })
   }
   render() {
-    const { title, slug, titleText, post, image, urlImage, date, script, tags } = this.state;
     return <div styleName="UpdateComic">
       <h2>Update Comic</h2>
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          placeholder="Title"
-          required
-          onChange={e => this.setState({title: e.target.value})}
-        />
-        <input
-          type="text"
-          name="slug"
-          value={slug}
-          placeholder="Slug"
-          required
-          onChange={e => this.setState({slug: e.target.value})}
-        />
-        <input
-          type="text"
-          name="titleText"
-          value={titleText}
-          placeholder="Title Text"
-          required
-          onChange={e => this.setState({titleText: e.target.value})}
-        />
-        {/*<input
-          type="date"
-          name="date"
-          value={date}
-          required
-          onChange={e => this.setState({date: e.target.value})}
-        />*/}
-        <input
-          type="file"
-          name="image"
-          onChange={e => this.setState({image: e.target.files[0], urlImage: URL.createObjectURL(e.target.files[0])})}
-        />
-        { typeof image === 'string'
-           ? <img src={image} />
-           : <img src={urlImage} />
-         }
-        <textarea
-          name="post"
-          value={post}
-          placeholder="Post"
-          required
-          onChange={e => this.setState({post: e.target.value})}
-        />
-        <textarea
-          name="script"
-          value={script}
-          placeholder="Script"
-          required
-          onChange={e => this.setState({script: e.target.value})}
-        />
-        <input
-          type="text"
-          name="tags"
-          value={tags}
-          placeholder="Tags (comma separated)"
-          required
-          onChange={e => this.setState({tags: e.target.value})}
-        />
-        <button type="submit">Update</button>
-      </form>
+      {this.props.comic ? <ComicForm
+        comic={this.props.comic}
+        onSubmit={this.handleSubmit.bind(this)}
+        submitText="Update"
+      /> : 'Loading'}
     </div>
   }
 }

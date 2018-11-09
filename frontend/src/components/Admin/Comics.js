@@ -11,8 +11,8 @@ class Comics extends Component {
 
     this.props.getComics();
 
-    this.delete.bind(this);
-    this.confirmDelete.bind(this);
+    this.delete = this.delete.bind(this);
+    this.confirmDelete = this.confirmDelete.bind(this);
 
     this.state = {
       deleteConfirmed: {}

@@ -1,5 +1,22 @@
 @import "../../constants";
 
 .Admin {
-  
+
+  > ul {
+    margin: 40px auto 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  li {
+    margin: 0 10px;
+  }
+
+  a {
+    font-family: $(serif);
+    &:hover {
+      text-decoration: underline;
+      color: $text-primary-color;
+    } 
+  }
 }
