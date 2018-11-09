@@ -13,7 +13,7 @@ import { createLogger } from 'redux-logger'
 import './index.css';
 import './assets/favicon.ico'
 
-if(prod.env.NODE_ENV === 'production') {
+if(process.env.NODE_ENV === 'production') {
   ReactGA.initialize('UA-3209890-1');
 }
 
