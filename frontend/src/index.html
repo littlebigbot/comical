@@ -20,26 +20,28 @@
   </head>
   <body>
     <main id="root">
-    	<h1><%= htmlWebpackPlugin.options.title %></h1>
-    	<h2><%= '\<\%= subtitle \%\>' %></h2>
-    	<datetime><%= '\<\%= date \%\>' %></datetime>
-    	<img src="<%= '\<\%= image \%\>' %>" />
-    	<p><%= '\<\%= description \%\>' %></p>
-    	<style>
-    		body {
-    			padding: 0;
-    		}
+      <%if (htmlWebpackPlugin.options.nodeEnv == 'production') { %>
+      	<h1><%= htmlWebpackPlugin.options.title %></h1>
+      	<h2><%= '\<\%= subtitle \%\>' %></h2>
+      	<datetime><%= '\<\%= date \%\>' %></datetime>
+      	<img src="<%= '\<\%= image \%\>' %>" />
+      	<p><%= '\<\%= description \%\>' %></p>
+      	<style>
+      		body {
+      			padding: 0;
+      		}
 
-    		#root {
-    			max-width: 800px;
-    			margin: 0 auto;
-    			opacity: .05;
-    		}
+      		#root {
+      			max-width: 800px;
+      			margin: 0 auto;
+      			opacity: .05;
+      		}
 
-    		#root img {
-    			width: 100%;
-    		}
-    	</style>
+      		#root img {
+      			width: 100%;
+      		}
+      	</style>
+      <% } %>
     </main>
   </body>
 </html>

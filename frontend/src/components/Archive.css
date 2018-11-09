@@ -1,5 +1,23 @@
 @import "../constants";
 
 .Archive {
-  
+  ul {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.comic-wrap {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border: 5px solid #fff;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
 }

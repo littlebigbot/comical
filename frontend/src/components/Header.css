@@ -10,6 +10,10 @@ $header-size: 150px;
 .Header {
   padding: 40px 0 20px;
   text-align: center;
+  border-bottom: 1px solid;
+
+  margin: 0 auto;
+  max-width: 1200px;
 
   > a {
     color: $text-primary-color;
@@ -25,7 +29,7 @@ $header-size: 150px;
   }*/
 
   nav {
-    margin: 20px auto;
+    margin: 40px auto 20px;
 
     ul {
       display: flex;

@@ -7,7 +7,10 @@ class About extends Component {
     super(props);
   }
   render() {
-    return <div styleName="About">About</div>
+    return <div styleName="About">
+      <h2>About</h2>
+      <p>So you want to know the story of Wayward Robot? Me too. We'll find out together.</p>
+    </div>
   }
 }
 

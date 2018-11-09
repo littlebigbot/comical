@@ -21,7 +21,9 @@ class Archive extends Component {
     return <li key={i}>
       <Link to={`/comic/${comic.slug}`}>
         <h3>{comic.title}</h3>
-        <img src={comic.thumbnail} alt={comic.title} />
+        <div styleName="comic-wrap">
+          <img src={comic.thumbnail} alt={comic.title} />
+        </div>
       </Link>
     </li>
   }

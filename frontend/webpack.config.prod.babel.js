@@ -11,6 +11,8 @@ const ROOT_PATH = path.resolve(__dirname);
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const BUILD_PATH = path.resolve(ROOT_PATH, '../static');
 
+process.env.NODE_ENV = 'production';
+
 export default {
   mode: 'production',
   entry: {
@@ -47,11 +49,14 @@ export default {
       template: path.resolve(SRC_PATH, 'index.html'),
       filename: 'index.html',
       title: 'Wayward Robot',
-      favicon: 'src/assets/favicon.ico'
+      favicon: 'src/assets/favicon.ico',
+      nodeEnv: process.env.NODE_ENV
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin([BUILD_PATH])
+    new CleanWebpackPlugin(['static'], {
+      root: path.join(__dirname, '..')
+    })
     // new CopyWebpackPlugin([
     //   { from: path.resolve(SRC_PATH, 'error.html'), to: BUILD_PATH }
     // ])

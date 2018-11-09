@@ -11,6 +11,8 @@ const ROOT_PATH = path.resolve(__dirname);
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const BUILD_PATH = path.resolve(ROOT_PATH, '../static');
 
+process.env.NODE_ENV = 'development';
+
 export default {
   mode: 'development',
   entry: {
@@ -45,12 +47,15 @@ export default {
       filename: 'index.html',
       alwaysWriteToDisk: true,
       title: 'Wayward Robot',
-      favicon: 'src/assets/favicon.ico'
+      favicon: 'src/assets/favicon.ico',
+      nodeEnv: process.env.NODE_ENV
     }),
     new HtmlWebpackHarddiskPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin([BUILD_PATH])
+    new CleanWebpackPlugin(['static'], {
+      root: path.join(__dirname, '..')
+    })
   ],
   devtool: 'inline-source-map',
   module: {
