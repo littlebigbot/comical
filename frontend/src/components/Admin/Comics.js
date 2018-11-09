@@ -9,21 +9,33 @@ class Comics extends Component {
   constructor(props) {
     super(props);
 
-    const { getComics, comics } = this.props;
-    if(!comics) {
-      getComics();
-    }
+    this.props.getComics();
+
     this.delete.bind(this);
+    this.confirmDelete.bind(this);
+
+    this.state = {
+      deleteConfirmed: {}
+    }
   }
   delete(slug) {
     return () => this.props.deleteComic(slug).then(this.props.getComics)
+  }
+  confirmDelete(slug) {
+    return () => this.setState({
+      deleteConfirmed: {
+        ...this.state.deleteConfirmed,
+        [slug]: true
+      }
+    })
   }
   renderComic(comic, i) {
     return <li key={i}>
       <h3>{comic.title}</h3>
       <Link to={`/comic/${comic.slug}`}>View</Link>
       <Link to={`/admin/comics/${comic.slug}`}>Edit</Link>
-      <a onClick={this.delete(comic.slug)}>Delete</a>
+      {this.state.deleteConfirmed[comic.slug] || <a onClick={this.confirmDelete(comic.slug)}>Delete</a>}
+      {this.state.deleteConfirmed[comic.slug] && <a onClick={this.delete(comic.slug)}>Confirm Delete</a>}
 
     </li>
   }

@@ -20,7 +20,10 @@ class NewComic extends Component {
   handleSubmit(e) {
     e.preventDefault();
     
-    this.props.createComic(this.state);
+    this.props.createComic(this.state)
+      .then(() => {
+        this.props.history.push('/admin/comics/');
+      })
   }
   render() {
     const { title, slug, titleText, post, script, tags } = this.state;
@@ -77,7 +80,7 @@ class NewComic extends Component {
           value={tags}
           placeholder="Tags (comma separated)"
           required
-          onChange={e => this.setState({taags: e.target.value})}
+          onChange={e => this.setState({tags: e.target.value})}
         />
         <button type="submit">Create</button>
       </form>
