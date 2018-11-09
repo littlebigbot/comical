@@ -10,12 +10,11 @@ import ReactGA from 'react-ga';
 import rootReducer from './reducers'
 import createHistory from 'history/createBrowserHistory'
 import { createLogger } from 'redux-logger'
+import googleAnalytics from './middleware/google-analytics';
 import './index.css';
 import './assets/favicon.ico'
 
-if(process.env.NODE_ENV === 'production') {
-  ReactGA.initialize('UA-3209890-1');
-}
+ReactGA.initialize('UA-3209890-1');
 
 const logger = createLogger();
 const history = createHistory();
@@ -34,6 +33,7 @@ const store = createStore(
     applyMiddleware(thunk),
     applyMiddleware(persist),
     applyMiddleware(historyMiddleware),
+    applyMiddleware(googleAnalytics)
   )
 );
 
