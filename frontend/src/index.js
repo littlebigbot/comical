@@ -13,7 +13,9 @@ import persist from './middleware/persist';
 import './index.css';
 import './assets/favicon.ico'
 
-ReactGA.initialize('UA-3209890-1');
+if(process.env.NODE_ENV === 'production') {
+  ReactGA.initialize('UA-3209890-1');
+}
 
 const logger = createLogger();
 const history = createHistory();

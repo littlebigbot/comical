@@ -15,12 +15,15 @@ class UpdateComic extends Component {
         const { comic } = this.props;
         this.setState(comic)
       });
+      
     this.state = {
       title: '',
       slug: '',
       titleText: '',
       post: '',
-      image: null
+      image: null,
+      tags: '',
+      script: ''
     }
   }
   componentDidUpdate(prevProps) {
@@ -32,7 +35,9 @@ class UpdateComic extends Component {
         slug: '',
         titleText: '',
         post: '',
-        image: null
+        image: null,
+        tags: '',
+        script: ''
       });
 
       getComic(match.params.slug || 'last')
@@ -51,7 +56,7 @@ class UpdateComic extends Component {
       })
   }
   render() {
-    const { title, slug, titleText, post, image, urlImage, date } = this.state;
+    const { title, slug, titleText, post, image, urlImage, date, script, tags } = this.state;
     return <div styleName="UpdateComic">
       <h2>Update Comic</h2>
       <form onSubmit={this.handleSubmit.bind(this)}>
@@ -101,6 +106,21 @@ class UpdateComic extends Component {
           placeholder="Post"
           required
           onChange={e => this.setState({post: e.target.value})}
+        />
+        <textarea
+          name="script"
+          value={script}
+          placeholder="Script"
+          required
+          onChange={e => this.setState({script: e.target.value})}
+        />
+        <input
+          type="text"
+          name="tags"
+          value={tags}
+          placeholder="Tags (comma separated)"
+          required
+          onChange={e => this.setState({tags: e.target.value})}
         />
         <button type="submit">Update</button>
       </form>

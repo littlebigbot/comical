@@ -17,7 +17,9 @@ const defaultAttributes = [
   'image',
   'thumbnail',
   'slug',
-  'date'
+  'date',
+  'script',
+  'tags'
 ];
 
 router.post('/', upload, validateToken, (req, res) => {
@@ -33,6 +35,8 @@ router.post('/', upload, validateToken, (req, res) => {
           image: req.file.location,
           thumbnail: thumb.Location,
           titleText: req.body.titleText,
+          tags: req.body.tags,
+          script: req.body.script,
           date: new Date(),
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -70,6 +74,8 @@ router.get('/:slug', (req, res) => {
 
 router.post('/:slug', upload, validateToken, (req, res, next) => {
 
+  console.log(req.body);
+
   const updateDb = () => {
     Comic
       .update(
@@ -83,13 +89,15 @@ router.post('/:slug', upload, validateToken, (req, res, next) => {
       .catch(next)
   }
 
-  const fields = ['title','post','slug','titleText','date'];
+  const fields = ['title','post','slug','titleText','date', 'script', 'tags'];
   const updateObject = fields.reduce((r, field) => {
     if(req.body[field]) {
       r[field] = req.body[field];
     }
     return r;
   }, {updatedAt: new Date()})
+
+  console.log(updateObject);
 
   if(req.file) {
     thumbnail(req.file.location)

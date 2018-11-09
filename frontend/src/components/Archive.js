@@ -1,11 +1,9 @@
-// This is just a blank template for faster
-// creation of new components
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getComics } from '~/actions';
+import LazyLoad from 'react-lazyload';
 import './Archive.css';
 
 class Archive extends Component {
@@ -21,9 +19,11 @@ class Archive extends Component {
     return <li key={i}>
       <Link to={`/comic/${comic.slug}`}>
         <h3>{comic.title}</h3>
-        <div styleName="comic-wrap">
-          <img src={comic.thumbnail} alt={comic.title} />
-        </div>
+        <LazyLoad height={200}>
+          <div styleName="comic-wrap">
+            <img src={comic.thumbnail} alt={comic.title} />
+          </div>
+        </LazyLoad>
       </Link>
     </li>
   }

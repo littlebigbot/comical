@@ -12,7 +12,9 @@ class NewComic extends Component {
       slug: '',
       titleText: '',
       post: '',
-      image: null
+      image: null,
+      script: '',
+      tags: ''
     }
   }
   handleSubmit(e) {
@@ -21,7 +23,7 @@ class NewComic extends Component {
     this.props.createComic(this.state);
   }
   render() {
-    const { title, slug, titleText, post } = this.state;
+    const { title, slug, titleText, post, script, tags } = this.state;
     return <div styleName="NewComic">
       <h2>New Comic</h2>
       <form onSubmit={this.handleSubmit.bind(this)}>
@@ -61,6 +63,21 @@ class NewComic extends Component {
           placeholder="Post"
           required
           onChange={e => this.setState({post: e.target.value})}
+        />
+        <textarea
+          name="script"
+          value={script}
+          placeholder="Script"
+          required
+          onChange={e => this.setState({script: e.target.value})}
+        />
+        <input
+          type="text"
+          name="tags"
+          value={tags}
+          placeholder="Tags (comma separated)"
+          required
+          onChange={e => this.setState({taags: e.target.value})}
         />
         <button type="submit">Create</button>
       </form>

@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     thumbnail: DataTypes.STRING,
     titleText: DataTypes.TEXT,
     date: DataTypes.DATE,
-    deleted: DataTypes.BOOLEAN
+    deleted: DataTypes.BOOLEAN,
+    script: DataTypes.TEXT,
+    tags: DataTypes.STRING
   }, {});
   Comic.associate = function(models) {
     // associations can be defined here
