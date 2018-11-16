@@ -1,30 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import './Post.css';
 import marked from 'marked';
 
-class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.rawMarkup = this.rawMarkup.bind(this);
-  }
-  rawMarkup(data) {
-    const rawMarkup = marked(data);
-    return { __html: rawMarkup };
-  }
-  render() {
+const Post = ({ date, title, post }) =>{
+  
+  const postHTML = marked(post);
 
-    const { date, title, post } = this.props;
-
-    return <section styleName="Post">
-      <header>
-        <h2>{title}</h2>
-        <Moment format="MMMM Do, YYYY">{date}</Moment>
-      </header>
-      <div styleName="content" dangerouslySetInnerHTML={this.rawMarkup(post)} />
-    </section>
-  }
+  return <section styleName="Post">
+    <header>
+      <h2>{title}</h2>
+      <Moment format="MMMM Do, YYYY">{date}</Moment>
+    </header>
+    <div styleName="content" dangerouslySetInnerHTML={{__html: postHTML}} />
+  </section>
 }
 
 Post.propTypes = {

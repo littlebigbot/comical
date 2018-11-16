@@ -11,7 +11,23 @@
     width: 100%;
   }
 
+  img {
+    width: 100%;
+    margin-bottom: 15px; 
+  }
+
   textarea {
     min-height: 200px;
   }  
+}
+
+.post-html {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+
+  &,
+  * {
+    font-family: $(sans-serif);
+  }
 }

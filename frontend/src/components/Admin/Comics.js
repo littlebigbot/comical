@@ -13,6 +13,7 @@ class Comics extends Component {
 
     this.delete = this.delete.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
+    this.cancelDelete = this.cancelDelete.bind(this);
 
     this.state = {
       deleteConfirmed: {}
@@ -29,6 +30,14 @@ class Comics extends Component {
       }
     })
   }
+  cancelDelete(slug) {
+    return () => this.setState({
+      deleteConfirmed: {
+        ...this.state.deleteConfirmed,
+        [slug]: false
+      }
+    }) 
+  }
   renderComic(comic, i) {
     return <li key={i}>
       <h3>{comic.title}</h3>
@@ -36,6 +45,7 @@ class Comics extends Component {
       <Link to={`/admin/comics/${comic.slug}`}>Edit</Link>
       {this.state.deleteConfirmed[comic.slug] || <a onClick={this.confirmDelete(comic.slug)}>Delete</a>}
       {this.state.deleteConfirmed[comic.slug] && <a onClick={this.delete(comic.slug)}>Confirm Delete</a>}
+      {this.state.deleteConfirmed[comic.slug] && <a onClick={this.cancelDelete(comic.slug)}>Cancel Delete</a>}
 
     </li>
   }

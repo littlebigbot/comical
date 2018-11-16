@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import './ComicForm.css';
 import { isEqual } from 'lodash';
+import marked from 'marked';
 
 class ComicForm extends Component {
   constructor(props) {
@@ -90,6 +91,7 @@ class ComicForm extends Component {
         required
         onChange={this.handleChange('post')}
       />
+      <div styleName="post-html" dangerouslySetInnerHTML={{__html: marked(post)}} />
       <textarea
         name="script"
         value={script}

@@ -58,7 +58,7 @@ ComicNavigation.propTypes = {
   nextSlug: PropTypes.string,
   firstSlug: PropTypes.string.isRequired,
   lastSlug: PropTypes.string.isRequired,
-  randomSlug: PropTypes.string.isRequired
+  randomSlug: PropTypes.string
 }
 
 export default ComicNavigation
