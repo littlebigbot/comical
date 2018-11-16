@@ -4,6 +4,29 @@
   ul {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  li {
+    margin-bottom: 15px;
+  }
+  a {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: block;
+
+    h3 {
+      font-size: 14px;
+      position: absolute;
+      padding: 10px 5px;
+      background: rgba(255,255,255,.6);
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      margin: 0 auto;
+      text-align: center;
+    }
   }
 }
 
