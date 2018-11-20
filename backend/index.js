@@ -77,8 +77,8 @@ app.use('/api/v2/auth', authRoutes)
 app.use('/api/v2/comics', comicsRoutes)
 
 var defaultMetaObject = req => ({
-  subtitle: 'The way of the universe',
-  description: 'Hi',
+  subtitle: 'Not all those who wander are lost. Though most are.',
+  description: 'Wayward Robot is the story of CJ-32 as they journey, learning about the world and having people speak at him while he patiently listens and occasionally zones out',
   url: URL + req.path,
   image: '',
   thumbnail: '',

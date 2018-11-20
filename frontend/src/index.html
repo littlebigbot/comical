@@ -27,18 +27,17 @@
       	<img src="<%= '\<\%= image \%\>' %>" />
       	<p><%= '\<\%= description \%\>' %></p>
       	<style>
-      		body {
-      			padding: 0;
-      		}
-
       		#root {
-      			max-width: 800px;
-      			margin: 0 auto;
-      			opacity: .05;
-      		}
-
-      		#root img {
-      			width: 100%;
+			border: 0;
+			clip: rect(1px, 1px, 1px, 1px);
+			clip-path: inset(50%);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute !important;
+			width: 1px;
+			word-wrap: normal !important;
       		}
       	</style>
       <% } %>

@@ -42,7 +42,7 @@ class Comic extends Component {
           <h2>{comic.title}</h2>
           <Moment format="MMMM Do, YYYY">{comic.date}</Moment>
 
-          {/*<ComicNavigation {...navigation} />*/}
+          <ComicNavigation {...navigation} />
           
           <Link to={navigation.nextSlug ? `/comic/${navigation.nextSlug}` : '/'} >
             <img src={comic.image} alt={comic.title_text} title={comic.title_text} />
